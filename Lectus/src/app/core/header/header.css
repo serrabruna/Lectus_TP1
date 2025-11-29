@@ -1,0 +1,31 @@
+.navbar{
+    width: 100%;
+    height: 121px;
+    background-color: #75D2F0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.botao-navbar{
+    background-color: #03151E;
+    border-radius: 10px;
+    margin: auto;
+    padding: 5px 8px;
+    text-align: center;
+}
+
+.botao-navbar a{
+    color: #FFFFFF;
+}
+
+nav ul li{
+    list-style: none;
+    display: inline-block;
+    margin-right: 20px;
+    font-size: 18px;
+}
+
+nav a{
+    color: black;
+}
