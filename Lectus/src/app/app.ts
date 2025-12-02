@@ -2,10 +2,11 @@ import { Component, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { Header } from './core/header/header';
 import { Cadastro } from './features/cadastro/cadastro';
+import { MenuLateral } from './core/menu-lateral/menu-lateral';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, Header, Cadastro],
+  imports: [RouterOutlet, Header, Cadastro, MenuLateral],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })
