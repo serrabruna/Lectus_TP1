@@ -13,3 +13,13 @@
     list-style: none;
     padding: 5px;
 }
+
+.navbar a{
+    text-decoration: none;
+    color: var(--preto-footer);
+}
+
+.navbar a:hover{
+    color: var(--preto-footer);
+    background-color: var(--branco);
+}
