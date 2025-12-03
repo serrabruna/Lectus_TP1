@@ -1,7 +1,7 @@
 import { Routes } from '@angular/router';
-import { Cadastro } from './features/cadastro/cadastro';
+import { CadastroForm } from './features/cadastro/cadastro-form/cadastro-form';
 
 export const routes: Routes = [
-    {path: '', redirectTo: 'cadastro', pathMatch: 'full'},
-    {path: 'cadastro', component: Cadastro}
+  { path: '', redirectTo: 'cadastro', pathMatch: 'full' },
+  { path: 'cadastro', component: CadastroForm },
 ];
