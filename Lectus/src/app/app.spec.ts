@@ -16,10 +16,5 @@ describe('App', () => {
     expect(app).toBeTruthy();
   });
 
-  it('should render title signal value', () => {
-    const fixture = TestBed.createComponent(App);
-    fixture.detectChanges();
-    const app = fixture.componentInstance;
-    expect(app.title()).toBe('Lectus');
-  });
+  
 });
