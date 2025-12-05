@@ -1,0 +1,57 @@
+<h1>Cadastre-se na LECTUS</h1>
+<p>Compre o seu livro em qualquer lugar, a qualquer hora!</p>
+
+<section class="form-container">
+    <h2>Informações da Conta: </h2>
+    <form #formulario="ngForm" (ngSubmit)="onSubmit(formulario)" novalidate>
+        <div class="form-grid">
+            <div class="campo">
+                <label for="nome">Nome: </label>
+                <input type="text" id="nome" name="nome" 
+                    [(ngModel)]="novoUsuario.nome" required minlength="3" placeholder="Nome">
+                <small class="erro" [hidden]="!(formulario.controls['nome']?.dirty && formulario.controls['nome'].invalid)">
+                    Nome é obrigatório e deve ter ao menos 3 caracteres.
+                </small>
+            </div>
+
+            <div class="campo">
+                <label for="email">Email: </label>
+                <input type="text" id="email" name="email" 
+                    [(ngModel)]="novoUsuario.email" required email placeholder="Email">
+                <small class="erro" [hidden]="!(formulario.controls['email']?.dirty && formulario.controls['email'].invalid)">
+                    Informe um e-mail válido.
+                </small>
+            </div>
+        </div>
+
+        <div class="form-grid">
+            <div class="campo">
+                <label for="senha">Senha: </label>
+                <input type="password" id="senha" name="senha"
+                    [(ngModel)]="novoUsuario.senha" required minlength="6" placeholder="Senha">
+                <small class="erro" [hidden]="!(formulario.controls['senha']?.dirty && formulario.controls['senha'].invalid)">
+                    A senha é obrigatória e deve ter ao menos 6 caracteres.
+                </small>
+            </div>
+        
+            <div class="campo">
+                <label for="telefone">Telefone: </label>
+                <input type="tel" id="telefone" name="telefone"
+                    [(ngModel)]="novoUsuario.telefone" required placeholder="Telefone">
+                <small class="erro" [hidden]="!(formulario.controls['telefone']?.dirty && formulario.controls['telefone'].invalid)">
+                    Telefone é obrigatório.
+                </small>
+            </div>
+        </div>
+
+        <div class="botoes-formulario">
+            <button type="submit" [disabled]="formulario.invalid || enviando()">
+                {{ enviando() ? 'Cadastrando...' : 'Finalizar Cadastro' }}
+            </button>
+        </div>
+
+        @if (mensagem()) {
+            <p class="mensagem">{{ mensagem() }}</p>
+        }
+    </form>
+</section>

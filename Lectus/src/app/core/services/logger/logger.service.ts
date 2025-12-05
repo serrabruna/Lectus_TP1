@@ -8,7 +8,11 @@ export class LoggerService {
     //enviar um endpoint posteriormente
     console.info(msg, extra ?? '');
   }
+<<<<<<< HEAD
 //oi
+=======
+
+>>>>>>> main
   warn(msg: string, extra?: unknown){
     console.warn(msg, extra ?? '');
   }
