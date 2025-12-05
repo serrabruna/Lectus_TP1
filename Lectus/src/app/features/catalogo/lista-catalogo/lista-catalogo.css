@@ -1,0 +1,185 @@
+/* src/app/features/catalogo/catalogo-list.css */
+
+.catalogo-wrapper {
+    padding: 20px;
+}
+
+/* --- Cabeçalho e Filtros Topo --- */
+.catalogo-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.catalogo-titulo {
+    font-size: 1.8rem;
+    font-weight: 600;
+    color: var(--preto-botoes);
+}
+
+.filtros-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.btn-filtro {
+    background-color: var(--azul-principal);
+    color: var(--preto-botoes);
+    border: 1px solid var(--azul-principal);
+    padding: 8px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: background-color 0.2s;
+}
+.btn-filtro:hover {
+    background-color: #5abde7;
+}
+
+.usuario-info {
+    text-align: right;
+    font-size: 0.9rem;
+    color: var(--cinza);
+    margin-left: 15px;
+}
+.usuario-info .conta-info {
+    color: var(--preto-botoes);
+    font-weight: 600;
+}
+
+/* --- Área de Busca --- */
+.busca-area {
+    margin-bottom: 20px;
+}
+
+.search-field {
+    display: flex;
+    align-items: center;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    overflow: hidden;
+    background-color: var(--branco);
+    max-width: 500px;
+}
+
+.search-field input {
+    flex-grow: 1;
+    border: none;
+    padding: 12px 15px;
+    font-size: 1rem;
+    outline: none;
+}
+
+.search-icon {
+    padding: 0 15px;
+    color: var(--cinza);
+}
+
+.btn-icon {
+    background-color: var(--azul-principal);
+    color: var(--preto-botoes);
+    border: none;
+    padding: 12px 20px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: background-color 0.2s;
+}
+.btn-icon:hover {
+    background-color: #5abde7;
+}
+
+/* --- Filtro Alfabético (A-Z) --- */
+.alfabeto-filtro {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    justify-content: left;
+    margin-bottom: 30px;
+    padding: 10px 0;
+    border-bottom: 1px solid #eee;
+}
+
+.letra-link {
+    font-size: 0.85rem;
+    color: var(--cinza);
+    cursor: pointer;
+    font-weight: 600;
+    padding: 2px 4px;
+}
+
+.letra-link:hover, .letra-link.ativo {
+    color: var(--preto-botoes);
+    text-decoration: underline;
+}
+
+.secao-letra {
+    font-size: 1.5rem;
+    color: var(--preto-botoes);
+    margin-bottom: 20px;
+}
+
+/* --- Grid e Cards de Livros --- */
+.livros-grid {
+    display: grid;
+    /* Cria colunas responsivas, mínimo 180px, expande para 1fr */
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 20px;
+}
+
+.livro-card {
+    background: var(--branco);
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: box-shadow 0.2s, transform 0.2s;
+    text-decoration: none;
+    color: inherit;
+}
+
+.livro-card:hover {
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    transform: translateY(-2px);
+}
+
+.livro-thumb {
+    width: 100%;
+    height: 200px; 
+    object-fit: cover;
+}
+
+.card-content {
+    padding: 10px;
+}
+
+.livro-titulo {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--preto-botoes);
+    margin-bottom: 3px;
+    white-space: nowrap; 
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.livro-autor {
+    font-size: 0.8rem;
+    color: var(--cinza);
+    margin-bottom: 8px;
+}
+
+.preco-simples {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--preto-botoes);
+}
+
+.loading-message, .vazio {
+    text-align: center;
+    padding: 40px;
+    border: 1px dashed #ccc;
+    border-radius: 8px;
+    margin-top: 20px;
+}

@@ -3,6 +3,7 @@ import { CadastroForm } from './features/cadastro/cadastro-form/cadastro-form';
 import { Header } from './core/header/header';
 import { MainLayout } from './core/layouts/main-layout/main-layout';
 import { AuthLayout } from './core/layouts/auth-layout/auth-layout';
+import { ListaCatalogo } from './features/catalogo/lista-catalogo/lista-catalogo';
 
 export const routes: Routes = [
   {
@@ -19,7 +20,7 @@ export const routes: Routes = [
     path: '', 
     component: MainLayout,
     children: [
-      //{ path: 'catalogo', component: CatalogoList },
+      { path: 'catalogo', component: ListaCatalogo },
     ]
   },
   

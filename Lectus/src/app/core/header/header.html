@@ -1,17 +1,17 @@
 <nav class="navbar">
-    <img src="images/logo2.png" alt="logo">
+    <img src="images/logo2.png" alt="logo" routerLink="/">
     <ul>
 
-        <button class="botao-navbar">
-            <li><a href="/">Contate-nos</a></li>
+        <button class="botao-navbar" onclick="">
+            <a routerLink="/">Contate-nos</a>
+        </button>
+
+        <button class="botao-navbar" routerLink="/login">
+            <a href="/login">Iniciar Sessão</a>
         </button>
 
         <button class="botao-navbar">
-            <li><a href="/login">Iniciar Sessão</a></li>
-        </button>
-
-        <button class="botao-navbar">
-            <li><a routerLink="/login">Entre agora</a></li>
+            <a routerLink="/cadastro">Cadastre-se</a>
         </button>
     </ul>
 </nav>
