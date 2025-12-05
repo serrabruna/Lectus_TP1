@@ -1,18 +1,30 @@
 .app-shell {
     display: flex;
-    min-height: 100vh;
-    padding-bottom: 80px; 
+    height: 100vh;
 }
 
+app-menu-lateral {
+    width: 250px;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    background-color: #7bd4ef;
+}
+
+
 .content-area {
-    flex-grow: 1;
+    margin-left: 250px; 
     padding: 20px;
-    margin-left: 20%;
-    min-height: 100vh;
+    min-height: calc(100vh - 150px); 
+    box-sizing: border-box;
 }
 
 app-footer {
-    position: fixed;
-    bottom: 0;
-    width: 100%;
+    margin-left: 250px;               
+    width: calc(100% - 250px);        
+    padding: 20px;
+    background: #000;                 
+    color: white;
+    text-align: center;
+    box-sizing: border-box;
 }

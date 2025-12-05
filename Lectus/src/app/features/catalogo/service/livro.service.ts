@@ -6,7 +6,7 @@ import { delay, Observable, of } from 'rxjs';
 @Injectable({
   providedIn: 'root',
 })
-export class ServiceService {
+export class LivroService {
   private logger = inject(LoggerService);
   
   private readonly mockLivros: Livro[] = [
