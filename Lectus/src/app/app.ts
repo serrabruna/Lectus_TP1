@@ -10,5 +10,5 @@ import { AuthLayout } from './core/layouts/auth-layout/auth-layout';
   styleUrl: './app.css',
 })
 export class App {
-  protected readonly title = signal('Lectus');
+  readonly title = signal('Lectus');
 }
