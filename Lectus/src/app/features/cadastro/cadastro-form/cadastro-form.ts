@@ -7,7 +7,7 @@ import { CadastroService } from '../service/cadastro.service';
 
 @Component({
   selector: 'app-cadastro-form',
-  imports: [Header, FormsModule],
+  imports: [FormsModule],
   templateUrl: './cadastro-form.html',
   styleUrl: './cadastro-form.css',
 })
