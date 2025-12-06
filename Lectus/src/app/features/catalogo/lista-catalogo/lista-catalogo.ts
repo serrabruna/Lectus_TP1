@@ -5,11 +5,12 @@ import { Router, RouterLink } from '@angular/router';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { Livro } from '../../../model/livro';
 import { CommonModule} from '@angular/common';
-import { Icones } from "../../../core/icones/icones";
+import { CardLivro } from '../card-livro/card-livro';
+import { finalize } from 'rxjs';
 
 @Component({
   selector: 'app-lista-catalogo',
-  imports: [RouterLink, CommonModule, Icones],
+  imports: [RouterLink, CommonModule, CardLivro],
   templateUrl: './lista-catalogo.html',
   styleUrl: './lista-catalogo.css',
 })
@@ -72,6 +73,34 @@ export class ListaCatalogo {
   onBusca(event: Event){
     const inputElement = event.target as HTMLInputElement;
     this.termoBusca.set(inputElement.value);
+  }
+
+  
+  private books = toSignal<Livro[], Livro[]>(
+    this.livroService.listar().pipe(finalize(() => this.loading.set(false))),
+    { initialValue: [] });
+  apenaspromo = signal(false);
+
+  prodExibidos = computed(() => {
+    return this.apenaspromo()
+      ? this.books().filter(p => p.empromocao)
+      : this.books();
+  });
+
+  alternarPromo() {
+    this.apenaspromo.update(p => !p);
+  }
+
+  onAddProduto(livro: { id: number, quantity: number }) {
+    alert(`Produto ${livro.id}, ${livro.quantity} unidades`);
+  }
+
+  onViewProduct(id: number) {
+    this.router.navigate(['/livros', id]);
+  }
+
+  onCreateProduct(rotas:string){
+    this.router.navigate([rotas]);
   }
 
 }

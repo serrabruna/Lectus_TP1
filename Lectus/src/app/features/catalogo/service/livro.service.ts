@@ -1,14 +1,14 @@
 import { inject, Injectable } from '@angular/core';
 import { LoggerService } from '../../../core/services/logger/logger.service';
 import { Livro } from '../../../model/livro';
-import { delay, Observable, of } from 'rxjs';
+import { delay, Observable, of, throwError } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class LivroService {
   private logger = inject(LoggerService);
-  
+
   private readonly mockLivros: Livro[] = [
     {
       id: 1,
@@ -25,8 +25,19 @@ export class LivroService {
     }
   ];
 
-  listar(): Observable<Livro[]>{
+  listar(): Observable<Livro[]> {
     this.logger.info('[LivroService] Simulação de listagem de livros.');
     return of(this.mockLivros).pipe(delay(500));
+  } 
+  buscarPorId(id: number): Observable<Livro> {
+    this.logger.info(`[LivroService] Buscando livro ${id}`);
+
+    const livro = this.mockLivros.find(l => l.id === id);
+
+    if (!livro) {
+      return throwError(() => new Error('Livro não encontrado'));
+    }
+
+    return of(livro).pipe(delay(300));
   }
 }

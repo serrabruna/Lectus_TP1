@@ -1,4 +1,4 @@
-export interface Livro{
+export interface Livro {
     id: number;
     categoria_id: number;
     titulo: string;
@@ -11,4 +11,38 @@ export interface Livro{
     imageURL: string;
     data_publicacao: Date;
     empromocao?: boolean;
+}
+
+export class LivroMapper {
+    static fromJson(json: any): Livro {
+        return {
+            id: json.id,
+            categoria_id: json.categoria_id,
+            titulo: json.titulo,
+            autor: json.autor,
+            isbn: json.isbn,
+            preco: json.preco,
+            estoque: json.estoque,
+            sinopse: json.sinopse,
+            imageURL: json.imageURL,
+            data_publicacao: json.data_publicacao,
+            empromocao: json.empromocao
+        };
+    }
+
+    static toJson(livro: Livro): any {
+        return {
+            id: livro.id,
+            categoria_id: livro.categoria_id,
+            titulo: livro.titulo,
+            autor: livro.autor,
+            isbn: livro.isbn,
+            preco: livro.preco,
+            estoque: livro.estoque,
+            sinopse: livro.sinopse,
+            imageURL: livro.imageURL,
+            data_publicacao: livro.data_publicacao,
+            empromocao: livro.empromocao
+        };
+    }
 }
