@@ -5,10 +5,11 @@ import { Router, RouterLink } from '@angular/router';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { Livro } from '../../../model/livro';
 import { CommonModule} from '@angular/common';
+import { Icones } from "../../../core/icones/icones";
 
 @Component({
   selector: 'app-lista-catalogo',
-  imports: [RouterLink, CommonModule],
+  imports: [RouterLink, CommonModule, Icones],
   templateUrl: './lista-catalogo.html',
   styleUrl: './lista-catalogo.css',
 })

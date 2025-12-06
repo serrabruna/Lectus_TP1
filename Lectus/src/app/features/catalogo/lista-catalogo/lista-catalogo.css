@@ -4,22 +4,9 @@
 
 .catalogo-header {
     display: grid;
-    grid-template-columns: 65% 5% 15% 15%;
+    grid-template-columns: 65% 5% 30%;
     align-items: center;
     margin-bottom: 20px;
-}
-
-.info {
-    font-size: 0.9rem;
-    color: var(--cinza);
-    margin-left: 15px;
-    margin-top: 10px;
-    text-align: center;
-
-}
-.info .icon-info {
-    color: var(--preto-botoes);
-    font-weight: 600;
 }
 
 .busca-area {
