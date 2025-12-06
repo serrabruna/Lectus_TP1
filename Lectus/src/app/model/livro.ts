@@ -24,6 +24,7 @@ export class LivroMapper {
             preco: json.preco,
             estoque: json.estoque,
             sinopse: json.sinopse,
+            editora: json.editora,
             imageURL: json.imageURL,
             data_publicacao: json.data_publicacao,
             empromocao: json.empromocao
@@ -40,6 +41,7 @@ export class LivroMapper {
             preco: livro.preco,
             estoque: livro.estoque,
             sinopse: livro.sinopse,
+            editora: livro.editora,
             imageURL: livro.imageURL,
             data_publicacao: livro.data_publicacao,
             empromocao: livro.empromocao

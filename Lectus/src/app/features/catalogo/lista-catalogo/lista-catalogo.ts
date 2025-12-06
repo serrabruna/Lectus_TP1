@@ -6,11 +6,12 @@ import { toSignal } from '@angular/core/rxjs-interop';
 import { Livro } from '../../../model/livro';
 import { CommonModule} from '@angular/common';
 import { CardLivro } from '../card-livro/card-livro';
+import { Icones } from '../../../core/icones/icones';
 import { finalize } from 'rxjs';
 
 @Component({
   selector: 'app-lista-catalogo',
-  imports: [RouterLink, CommonModule, CardLivro],
+  imports: [RouterLink, CommonModule, CardLivro, Icones],
   templateUrl: './lista-catalogo.html',
   styleUrl: './lista-catalogo.css',
 })
