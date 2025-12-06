@@ -1,6 +1,7 @@
 <section class="catalogo-wrapper">
     
     <div class="catalogo-header">
+<<<<<<< HEAD
 
         <div class="search-field">
             <i class="bi bi-search search-icon"></i>
@@ -8,6 +9,21 @@
         </div>
         <button class="btn-icon">></button>
 
+=======
+
+        <div class="busca-area">
+            <div class="search-field">
+                <i class="bi bi-search"></i>
+                <input type="text" placeholder="Procurar por nome da coleção...">
+            </div>
+            <button class="btn-icon">></button>
+        </div>
+    
+        <div class="usuario-info">
+            <p>Usuário</p>
+            <p class="conta-info">Minha Conta</p>
+        </div>
+>>>>>>> Bruna
 
     </div>
 
@@ -28,8 +44,13 @@
     </div>
 
 
+<<<<<<< HEAD
     @if (termoBusca().length == 0) {
         <h3 class="secao-letra">{{ filtroAtivo() }}</h3>
+=======
+    @if (livros().length > 0) {
+        <h3 class="secao-letra">Iniciando com {{ filtroAtivo() }}</h3>
+>>>>>>> Bruna
     }
 
 
@@ -52,14 +73,18 @@
 
                     <img [src]="livro.imageURL"
                          [alt]="livro.titulo"
+<<<<<<< HEAD
                          class="livro-thumb"
                          >
+=======
+                         class="livro-thumb">
+>>>>>>> Bruna
 
                     <div class="card-content">
                         <h3 class="livro-titulo">{{ livro.titulo }}</h3>
                         <p class="livro-autor">{{ livro.autor | uppercase }}</p>
                         <span class="preco-simples">
-                            {{ livro.preco | currency:'BRL':'symbol':'1.2-2' }}
+                            R$ {{ livro.preco | currency:'BRL':'symbol':'1.2-2' }}
                         </span>
                     </div>
 
@@ -67,7 +92,7 @@
             }
             @empty {
                 <p class="vazio">
-                    Nenhum livro encontrado.
+                    Nenhum livro encontrado para o filtro "{{ filtroAtivo() }}".
                 </p>
             }
 
