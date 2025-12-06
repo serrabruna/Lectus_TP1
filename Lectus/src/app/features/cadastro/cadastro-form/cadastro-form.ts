@@ -18,11 +18,14 @@ export class CadastroForm {
   enviando = signal(false);
   mensagem = signal('');
 
+  tiposUsuario = ['CLIENTE', 'ADMIN'];
+
   novoUsuario: Usuario = {
     nome: '',
     email: '',
     senha: '',
-    telefone: ''
+    telefone: '',
+    tipo_usuario: 'CLIENTE'
   };
 
   onSubmit(form: NgForm){
