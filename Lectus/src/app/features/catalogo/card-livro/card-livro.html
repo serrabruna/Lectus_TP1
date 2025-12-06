@@ -1,1 +1,61 @@
+@if (livro()) {
 
+<article class="produto">
+
+    <h1 class="topo">Catálogo</h1>
+
+    <div class="conteudo">
+
+        <!-- MINIATURAS -->
+        <div class="adicionais">
+            <img src="https://img.bertrand.pt/images/harry-potter-e-a-crianca-amaldicoada-j-k-rowling/NDV8MjIyMzc1NTV8MTgxMjM5MzN8MTUzNjEwMjAwMDAwMA==/500x"
+                alt="Miniatura livro">
+
+            <img src="https://img.bertrand.pt/images/harry-potter-e-a-crianca-amaldicoada-j-k-rowling/NDV8MjIyMzc1NTV8MTgxMjM5MzN8MTUzNjEwMjAwMDAwMA==/500x"
+                alt="Miniatura livro">
+        </div>
+
+        <!-- IMAGEM PRINCIPAL -->
+        <div class="principal">
+            <img src="https://img.bertrand.pt/images/harry-potter-e-a-crianca-amaldicoada-j-k-rowling/NDV8MjIyMzc1NTV8MTgxMjM5MzN8MTUzNjEwMjAwMDAwMA==/500x"
+                alt="Livro principal">
+        </div>
+
+        <div class="info">
+
+            <h3 class="titulo">{{ livro()!.titulo }}</h3>
+
+            @if (livro()!.empromocao) {
+            <span class="selo promo">Promoção</span>
+            }
+
+            <div class="preco-container">
+                @if (livro()!.empromocao) {
+                <span class="preco desconto">
+                    {{ livro()!.preco | desconto:10 | currency:'BRL':'symbol':'1.2-2' }}
+                </span>
+                } @else {
+                <span class="preco">
+                    {{ livro()!.preco | currency:'BRL':'symbol':'1.2-2' }}
+                </span>
+                }
+            </div>
+
+            <app-quantidade-controle [(contador)]="contador" />
+
+            <div class="acoes">
+                <button class="btn" (click)="onView()">Detalhes</button>
+                @if (contador() > 0) {
+                <button class="btn" (click)="onAdd()">Adicionar</button>
+                }
+            </div>
+            <p class="sinopse">{{ livro()!.sinopse }}</p>
+        </div>
+
+    </div>
+
+
+
+</article>
+
+}

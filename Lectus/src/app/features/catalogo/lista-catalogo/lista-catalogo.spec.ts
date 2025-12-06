@@ -10,10 +10,12 @@ describe('ListaCatalogo', () => {
     await TestBed.configureTestingModule({
       imports: [ListaCatalogo]
     })
-    .compileComponents();
+      .compileComponents();
 
     fixture = TestBed.createComponent(ListaCatalogo);
     component = fixture.componentInstance;
+    fixture.detectChanges();
+
     await fixture.whenStable();
   });
 

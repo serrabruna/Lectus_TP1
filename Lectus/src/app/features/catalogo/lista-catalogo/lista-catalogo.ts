@@ -5,11 +5,15 @@ import { Router, RouterLink } from '@angular/router';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { Livro } from '../../../model/livro';
 import { CommonModule} from '@angular/common';
-import { Icones } from "../../../core/icones/icones";
+import { CardLivro } from '../card-livro/card-livro';
+import { Icones } from '../../../core/icones/icones';
+import { finalize } from 'rxjs';
+
+
 
 @Component({
   selector: 'app-lista-catalogo',
-  imports: [RouterLink, CommonModule, Icones],
+  imports: [RouterLink, CommonModule, CardLivro, Icones],
   templateUrl: './lista-catalogo.html',
   styleUrl: './lista-catalogo.css',
 })
@@ -29,14 +33,14 @@ export class ListaCatalogo {
     { initialValue: [] }
   );
 
-  constructor(){
-    effect( () => {
+  constructor() {
+    effect(() => {
       const lista = this.livroSignal();
 
-      if(lista.length > 0 && this.loading()){
+      if (lista.length > 0 && this.loading()) {
         this.loading.set(false);
       }
-    }, {allowSignalWrites: true});
+    }, { allowSignalWrites: true });
   }
 
   livros = computed(() => {
@@ -44,34 +48,61 @@ export class ListaCatalogo {
     const busca = this.termoBusca().trim().toLowerCase();
 
     if (!lista || lista.length === 0) {
-        return [];
+      return [];
     }
 
     let listaFiltrada = lista;
-    if(busca.length > 0) {
+    if (busca.length > 0) {
       return listaFiltrada
-            .filter(l => l.titulo.toLowerCase().includes(busca))
-            .sort((a, b) => a.titulo.localeCompare(b.titulo));
+        .filter(l => l.titulo.toLowerCase().includes(busca))
+        .sort((a, b) => a.titulo.localeCompare(b.titulo));
     }
 
     const filtro = this.filtroAtivo().toUpperCase();
 
     if (filtro === 'TODOS') {
-        return lista.sort((a, b) => a.titulo.localeCompare(b.titulo));
+      return lista.sort((a, b) => a.titulo.localeCompare(b.titulo));
     }
 
     return lista
-        .filter(l => l.titulo.startsWith(filtro))
-        .sort((a, b) => a.titulo.localeCompare(b.titulo));
+      .filter(l => l.titulo.startsWith(filtro))
+      .sort((a, b) => a.titulo.localeCompare(b.titulo));
   });
 
   onFiltroAlfabetico(letra: string) {
-      this.filtroAtivo.set(letra);
+    this.filtroAtivo.set(letra);
   }
 
-  onBusca(event: Event){
+  onBusca(event: Event) {
     const inputElement = event.target as HTMLInputElement;
     this.termoBusca.set(inputElement.value);
+  }
+
+  private books = toSignal<Livro[], Livro[]>(
+    this.livroService.listar().pipe(finalize(() => this.loading.set(false))),
+    { initialValue: [] });
+  apenaspromo = signal(false);
+
+  prodExibidos = computed(() => {
+    return this.apenaspromo()
+      ? this.books().filter(p => p.empromocao)
+      : this.books();
+  });
+
+  alternarPromo() {
+    this.apenaspromo.update(p => !p);
+  }
+
+  onAddProduto(livro: { id: number, quantity: number }) {
+    alert(`Produto ${livro.id}, ${livro.quantity} unidades`);
+  }
+
+  onViewProduct(id: number) {
+    this.router.navigate(['/livros', id]);
+  }
+
+  onCreateProduct(rotas: string) {
+    this.router.navigate([rotas]);
   }
 
 }

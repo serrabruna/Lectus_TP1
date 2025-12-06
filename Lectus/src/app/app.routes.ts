@@ -1,10 +1,11 @@
 import { Routes } from '@angular/router';
 import { CadastroForm } from './features/cadastro/cadastro-form/cadastro-form';
-import { Header } from './core/header/header';
-import { MainLayout } from './core/layouts/main-layout/main-layout';
 import { AuthLayout } from './core/layouts/auth-layout/auth-layout';
+import { MainLayout } from './core/layouts/main-layout/main-layout';
 import { ListaCatalogo } from './features/catalogo/lista-catalogo/lista-catalogo';
+import { CardLivro } from './features/catalogo/card-livro/card-livro';
 import { LoginForm } from './features/login/login-form/login-form';
+
 
 export const routes: Routes = [
   {
@@ -18,12 +19,14 @@ export const routes: Routes = [
   },
 
   {
-    path: '', 
+    path: '',
     component: MainLayout,
     children: [
       { path: 'catalogo', component: ListaCatalogo },
+      { path: 'catalogo/:id', component: CardLivro },
+      { path: '', redirectTo: 'catalogo', pathMatch: 'full' }
     ]
   },
-  
-  { path: '**', redirectTo: 'cadastro' }, 
+
+  { path: '**', redirectTo: 'cadastro' },
 ];

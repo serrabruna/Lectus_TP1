@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { CardLivro } from './card-livro';
+import { DescontoPipe } from '../../../shared/desconto-pipe/desconto-pipe';
+import { QuantidadeControle } from '../../../shared/quantidade-controle/quantidade-controle';
 
 describe('CardLivro', () => {
   let component: CardLivro;
@@ -8,7 +9,7 @@ describe('CardLivro', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [CardLivro]
+      imports: [CardLivro,DescontoPipe, QuantidadeControle]
     })
     .compileComponents();
 
