@@ -5,3 +5,7 @@
     --branco: #FFFFFF;
     --cinza: #8A8A8A;
 }
+
+*{
+    margin: 0;
+}

@@ -4,7 +4,7 @@
 
         <div class="search-field">
             <i class="bi bi-search search-icon"></i>
-            <input type="text" placeholder="Procurar por nome...">
+            <input type="text" placeholder="Procurar por nome..." (input)="onBusca($event)">
         </div>
         <button class="btn-icon">></button>
 
@@ -29,8 +29,8 @@
     </div>
 
 
-    @if (livros().length > 0) {
-        <h3 class="secao-letra">Iniciando com {{ filtroAtivo() }}</h3>
+    @if (termoBusca().length == 0) {
+        <h3 class="secao-letra">{{ filtroAtivo() }}</h3>
     }
 
 
@@ -59,7 +59,7 @@
                         <h3 class="livro-titulo">{{ livro.titulo }}</h3>
                         <p class="livro-autor">{{ livro.autor | uppercase }}</p>
                         <span class="preco-simples">
-                            R$ {{ livro.preco | currency:'BRL':'symbol':'1.2-2' }}
+                            {{ livro.preco | currency:'BRL':'symbol':'1.2-2' }}
                         </span>
                     </div>
 
@@ -67,7 +67,7 @@
             }
             @empty {
                 <p class="vazio">
-                    Nenhum livro encontrado para o filtro "{{ filtroAtivo() }}".
+                    Nenhum livro encontrado.
                 </p>
             }
 

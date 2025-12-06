@@ -17,6 +17,8 @@ export class ListaCatalogo {
   private livroService = inject(LivroService);
   private logger = inject(LoggerService);
   private router = inject(Router);
+  termoBusca = signal<string>('');
+
 
   loading = signal(true);
   alfabeto = Array.from({ length: 26 }, (_, i) => String.fromCharCode(65 + i));
@@ -39,6 +41,19 @@ export class ListaCatalogo {
 
   livros = computed(() => {
     const lista = this.livroSignal();
+    const busca = this.termoBusca().trim().toLowerCase();
+
+    if (!lista || lista.length === 0) {
+        return [];
+    }
+
+    let listaFiltrada = lista;
+    if(busca.length > 0) {
+      return listaFiltrada
+            .filter(l => l.titulo.toLowerCase().includes(busca))
+            .sort((a, b) => a.titulo.localeCompare(b.titulo));
+    }
+
     const filtro = this.filtroAtivo().toUpperCase();
 
     if (filtro === 'TODOS') {
@@ -52,6 +67,11 @@ export class ListaCatalogo {
 
   onFiltroAlfabetico(letra: string) {
       this.filtroAtivo.set(letra);
+  }
+
+  onBusca(event: Event){
+    const inputElement = event.target as HTMLInputElement;
+    this.termoBusca.set(inputElement.value);
   }
 
 }
