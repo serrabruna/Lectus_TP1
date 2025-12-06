@@ -19,13 +19,14 @@ export const routes: Routes = [
   },
 
   {
-    path: '', 
+    path: '',
     component: MainLayout,
     children: [
       { path: 'catalogo', component: ListaCatalogo },
-      { path: 'livro', component: CardLivro }
+      { path: 'catalogo/:id', component: CardLivro },
+      { path: '', redirectTo: 'catalogo', pathMatch: 'full' }
     ]
   },
-  
-  { path: '**', redirectTo: 'cadastro' }, 
+
+  { path: '**', redirectTo: 'cadastro' },
 ];
