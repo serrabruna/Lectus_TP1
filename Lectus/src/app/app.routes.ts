@@ -4,6 +4,7 @@ import { Header } from './core/header/header';
 import { MainLayout } from './core/layouts/main-layout/main-layout';
 import { AuthLayout } from './core/layouts/auth-layout/auth-layout';
 import { ListaCatalogo } from './features/catalogo/lista-catalogo/lista-catalogo';
+import { LoginForm } from './features/login/login-form/login-form';
 
 export const routes: Routes = [
   {
@@ -12,7 +13,7 @@ export const routes: Routes = [
     children: [
       { path: '', redirectTo: 'cadastro', pathMatch: 'full' },
       { path: 'cadastro', component: CadastroForm },
-      //{ path: 'login', component: LoginForm },
+      { path: 'login', component: LoginForm },
     ]
   },
 
