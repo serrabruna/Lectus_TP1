@@ -15,7 +15,7 @@ export interface Livro {
 
 export class LivroMapper {
     static fromJson(json: any): Livro {
-        return {
+        return{
             id: json.id,
             categoria_id: json.categoria_id,
             titulo: json.titulo,
