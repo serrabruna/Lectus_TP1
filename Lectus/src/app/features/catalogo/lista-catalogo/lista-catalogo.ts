@@ -1,4 +1,4 @@
-import { Component, computed, inject, signal } from '@angular/core';
+import { Component, computed, inject, signal, effect } from '@angular/core';
 import { LivroService } from '../service/livro.service';
 import { LoggerService } from '../../../core/services/logger/logger.service';
 import { Router, RouterLink } from '@angular/router';
@@ -26,13 +26,19 @@ export class ListaCatalogo {
     { initialValue: [] }
   );
 
+  constructor(){
+    effect( () => {
+      const lista = this.livroSignal();
+
+      if(lista.length > 0 && this.loading()){
+        this.loading.set(false);
+      }
+    }, {allowSignalWrites: true});
+  }
+
   livros = computed(() => {
     const lista = this.livroSignal();
-    if(lista && this.loading()){
-      this.loading.set(false);
-    }
-
-    const filtro = this.filtroAtivo();
+    const filtro = this.filtroAtivo().toUpperCase();
 
     if (filtro === 'TODOS') {
         return lista.sort((a, b) => a.titulo.localeCompare(b.titulo));

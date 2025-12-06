@@ -7,6 +7,7 @@ export interface Livro{
     preco: number;
     estoque: number;
     sinopse: string;
+    editora: string;
     imageURL: string;
     data_publicacao: Date;
     empromocao?: boolean;

@@ -1,41 +1,14 @@
-/* src/app/features/catalogo/catalogo-list.css */
-
 .catalogo-wrapper {
+    width: 100%;
     padding: 20px;
 }
 
-/* --- Cabeçalho e Filtros Topo --- */
 .catalogo-header {
-    display: flex;
-    justify-content: space-between;
+    display: grid;
+    grid-template-columns: 95% 5%;
     align-items: center;
     margin-bottom: 20px;
-}
-
-.catalogo-titulo {
-    font-size: 1.8rem;
-    font-weight: 600;
-    color: var(--preto-botoes);
-}
-
-.filtros-header {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-.btn-filtro {
-    background-color: var(--azul-principal);
-    color: var(--preto-botoes);
-    border: 1px solid var(--azul-principal);
-    padding: 8px 12px;
-    border-radius: 6px;
-    cursor: pointer;
-    font-weight: 600;
-    transition: background-color 0.2s;
-}
-.btn-filtro:hover {
-    background-color: #5abde7;
+    width: 100%;
 }
 
 .usuario-info {
@@ -44,14 +17,17 @@
     color: var(--cinza);
     margin-left: 15px;
 }
+
 .usuario-info .conta-info {
     color: var(--preto-botoes);
     font-weight: 600;
 }
 
-/* --- Área de Busca --- */
 .busca-area {
     margin-bottom: 20px;
+    display: flex;
+    flex-direction: row;
+    width: 80%;
 }
 
 .search-field {
@@ -60,8 +36,9 @@
     border: 1px solid #ddd;
     border-radius: 8px;
     overflow: hidden;
-    background-color: var(--branco);
-    max-width: 500px;
+    background-color: #EEEEEF;
+    height: 100px;
+    width: 100%;
 }
 
 .search-field input {
@@ -70,6 +47,8 @@
     padding: 12px 15px;
     font-size: 1rem;
     outline: none;
+    height: 25px;
+    margin-right: 30px;
 }
 
 .search-icon {
@@ -90,7 +69,6 @@
     background-color: #5abde7;
 }
 
-/* --- Filtro Alfabético (A-Z) --- */
 .alfabeto-filtro {
     display: flex;
     flex-wrap: wrap;
@@ -99,11 +77,12 @@
     margin-bottom: 30px;
     padding: 10px 0;
     border-bottom: 1px solid #eee;
+    color: var(--preto-botoes);
 }
 
 .letra-link {
     font-size: 0.85rem;
-    color: var(--cinza);
+    color: var(--preto-botoes);
     cursor: pointer;
     font-weight: 600;
     padding: 2px 4px;
@@ -120,10 +99,8 @@
     margin-bottom: 20px;
 }
 
-/* --- Grid e Cards de Livros --- */
 .livros-grid {
     display: grid;
-    /* Cria colunas responsivas, mínimo 180px, expande para 1fr */
     grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
     gap: 20px;
 }
