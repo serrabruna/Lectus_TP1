@@ -13,7 +13,7 @@ import { finalize } from 'rxjs';
 
 @Component({
   selector: 'app-lista-catalogo',
-  imports: [RouterLink, CommonModule, CardLivro, Icones],
+  imports: [RouterLink, CommonModule, Icones],
   templateUrl: './lista-catalogo.html',
   styleUrl: './lista-catalogo.css',
 })
