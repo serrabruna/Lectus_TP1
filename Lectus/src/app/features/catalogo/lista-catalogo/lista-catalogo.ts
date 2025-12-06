@@ -5,10 +5,11 @@ import { Router, RouterLink } from '@angular/router';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { Livro } from '../../../model/livro';
 import { CommonModule} from '@angular/common';
+import { CardLivro } from '../card-livro/card-livro';
 
 @Component({
   selector: 'app-lista-catalogo',
-  imports: [RouterLink, CommonModule],
+  imports: [RouterLink, CommonModule, CardLivro],
   templateUrl: './lista-catalogo.html',
   styleUrl: './lista-catalogo.css',
 })
@@ -45,6 +46,15 @@ export class ListaCatalogo {
 
   onFiltroAlfabetico(letra: string) {
       this.filtroAtivo.set(letra);
+  }
+  
+
+  onAdd(event: { id: number; quantity: number }) {
+    console.log('Livro adicionado:', event);
+  }
+
+  onView(id: number) {
+    console.log('Ver detalhes do livro:', id);
   }
 
 }

@@ -1,0 +1,112 @@
+.card {
+  grid-template-columns: 120px 1fr;
+  gap: 16px;
+  padding: 16px;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  background: #fff;
+  height: 180px;
+  display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.card.promo {
+  box-shadow: 0 0 0 2px rgba(25, 118, 210, 0.1);
+  border: 2px dashed #2f9e41;
+}
+
+
+.conteudo {
+  display: flex;
+    justify-content: center;
+    align-items: center;
+  gap: 8px;
+}
+
+.titulo {
+  margin: 0;
+  font-size: 1.1rem;
+  color: #111827;
+}
+
+.desc {
+  margin: 0;
+  color: #4b5563;
+}
+
+.linhapreco {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.preco {
+  font-weight: 700;
+  color: #111827;
+}
+
+.preco-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.preco-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.preco.desconto {
+  color: #d32f2f;
+  font-weight: bold;
+}
+
+.preco.original {
+  text-decoration: line-through;
+  color: #888;
+  font-size: 0.9rem;
+}
+
+.acoes {
+  display: flex;
+  gap: 12px;
+  margin-top: 8px;
+  justify-content: right;
+}
+
+
+.btn {
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: 1px solid transparent;
+  cursor: pointer;
+  background-color:#111827;
+  color: #bfdbfe;
+}
+
+.btn:hover {
+  opacity: 0.95;
+  background: #f9fafb;
+  color: #000;
+}
+
+
+.selo {
+  display: inline-block;
+  font-size: 0.75rem;
+  padding: 2px 8px;
+  border-radius: 999px;
+  border: 1px solid transparent;
+}
+
+.selo.promo {
+  background: #eff6ff;
+  color: #1d4ed8;
+  border-color: #bfdbfe;
+}
+img{
+    width: 20%;
+    
+}

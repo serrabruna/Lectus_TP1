@@ -1,1 +1,49 @@
+@if (livro()) {
 
+<article [class.empromocao]="livro()!.empromocao">
+
+  <div class="conteudo">
+
+    <header class="cabecalho">
+      <h1>Catálogo</h1>
+
+      <img
+        src="https://img.bertrand.pt/images/harry-potter-e-a-crianca-amaldicoada-j-k-rowling/NDV8MjIyMzc1NTV8MTgxMjM5MzN8MTUzNjEwMjAwMDAwMA==/500x"
+        alt="livro">
+
+      <h3 class="titulo">{{ livro()!.titulo }}</h3>
+
+      @if (livro()!.empromocao) {
+        <span class="selo promo">Promoção</span>
+      }
+    </header>
+
+    <p class="desc">{{ livro()!.sinopse }}</p>
+
+    <div class="preco-container">
+      @if (livro()!.empromocao) {
+        <span class="preco desconto">
+          {{ livro()!.preco | desconto:10 | currency:'BRL':'symbol':'1.2-2' }}
+        </span>
+      } @else {
+        <span class="preco">
+          {{ livro()!.preco | currency:'BRL':'symbol':'1.2-2' }}
+        </span>
+      }
+
+      <app-quantidade-controle [(contador)]="contador" />
+
+      <div class="acoes">
+        <button class="btn" (click)="onView()">Detalhes</button>
+
+        @if (contador() > 0) {
+          <button class="btn" (click)="onAdd()">Adicionar</button>
+        }
+      </div>
+    </div>
+
+  </div>
+
+</article>
+
+}
