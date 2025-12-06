@@ -29,4 +29,14 @@ export class LivroService {
     this.logger.info('[LivroService] Simulação de listagem de livros.');
     return of(this.mockLivros).pipe(delay(500));
   }
+
+  adicionarLivro(novoLivro: Livro): Observable<Livro>{
+    this.logger.info('[LivroService] Simulação de adição de um livro.');
+    const novoId = this.mockLivros.length + 1;
+    const livroAdicionado = { ...novoLivro, id: novoId };
+
+    this.mockLivros.push(livroAdicionado);
+
+    return of (livroAdicionado).pipe(delay(500));
+  }
 }
