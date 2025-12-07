@@ -8,6 +8,7 @@ import { Component, model } from '@angular/core';
   styleUrl: './quantidade-controle.css',
 })
 export class QuantidadeControle {
+  
   contador = model<number>(0);
 
   decrementar() {
