@@ -7,7 +7,6 @@ import { CardLivro } from './features/catalogo/card-livro/card-livro';
 import { LoginForm } from './features/login/login-form/login-form';
 import { AdicionarLivro } from './features/gerenciar/adicionar-livro/adicionar-livro'; 
 import { Carrinho } from './features/carrinho/carrinho/carrinho';
-import { AdicionarLivro } from './features//gerenciar/adicionar-livro/adicionar-livro';
 import { GerenciarLivros } from './features/gerenciar/gerenciar-livros/gerenciar-livros';
 import { EditarLivro } from './features/gerenciar/editar-livro/editar-livro';
 import { Historico } from './features/historico/historico';
