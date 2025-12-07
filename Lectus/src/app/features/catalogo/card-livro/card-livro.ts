@@ -25,6 +25,8 @@ export class CardLivro implements OnInit {
 
   livro = signal<Livro | null>(null);
   contador = signal(0);
+  mostrarDetalhes = signal(false);
+
 
   ngOnInit(): void {
     const id = Number(this.route.snapshot.paramMap.get('id'));
@@ -40,7 +42,6 @@ export class CardLivro implements OnInit {
     });
   }
 
-  // ✅ FORA do ngOnInit
   onAdd(): void {
     if (!this.livro() || this.contador() === 0) return;
 
@@ -51,8 +52,10 @@ export class CardLivro implements OnInit {
   }
 
   onView(): void {
+    this.mostrarDetalhes.update(v => !v);
     if (!this.livro()) return;
 
     console.log('Ver detalhes do livro:', this.livro()!.id);
   }
+
 }

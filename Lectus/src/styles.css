@@ -6,6 +6,9 @@
     --cinza: #8A8A8A;
 }
 
-*{
-    margin: 0;
+
+body{
+  font-family: "Roboto", sans-serif;
+  font-optical-sizing: auto;
+  margin: 0;
 }
