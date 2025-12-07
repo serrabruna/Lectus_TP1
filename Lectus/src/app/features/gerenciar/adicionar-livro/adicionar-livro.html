@@ -1,12 +1,10 @@
-<div class="titulo">
-    <h1>Adicionar Livro</h1>
-</div>
+
 
 <section class="add-livro-wrapper">
     <div class="form-area">
         <section class="form-container">
             <form #formulario="ngForm" (ngSubmit)="onSubmit(formulario)" novalidate>
-                
+                <h2>Adicionar Livro:</h2>
                 <div class="form-grid">
                     <div class="campo campo-full">
                         <label for="titulo">Título: </label>
@@ -152,7 +150,7 @@
                  class="preview-img">
         } @else {
             <div class="placeholder">
-                Insira a URL da imagem no campo acima.
+                Insira a URL da imagem no campo correspondente.
             </div>
         }
     </div>
