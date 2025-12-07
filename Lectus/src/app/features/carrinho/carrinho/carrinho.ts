@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { CarrinhoService } from '../services/carrinho/carrinho.service';
 import { Router } from '@angular/router';
+import { HistoricoService } from '../../historico/services/historico/historico.service';
 
 @Component({
   selector: 'app-carrinho',
@@ -12,6 +13,7 @@ import { Router } from '@angular/router';
 export class Carrinho {
   private carrinho = inject(CarrinhoService);
   private router = inject(Router);
+  private historicoService = inject(HistoricoService);
 
   livros = this.carrinho.itens;
   total = this.carrinho.valorTotal;
@@ -31,12 +33,28 @@ export class Carrinho {
     this.carrinho.limpar();
   }
   checkout() {
+    const pedido = {
+      id: Date.now(),
+      data: new Date(),
+      itens: this.livros(),
+      total: this.total()
+    };
+
+    this.historicoService.registrarPedido(pedido);
+
     alert(`Simulando checkout. Total: R$ ${this.total().toFixed(2)}`);
     this.limpar();
     this.router.navigate(['/livros']);
+
   }
   continuarComprando() {
     this.router.navigate(['/catalogo']);
   }
-  
+  irCarrinho() {
+    this.router.navigate(['/carrinho']);
+  }
+  irHistorico() {
+    this.router.navigate(['/historico']);
+  }
+
 }

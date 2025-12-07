@@ -159,10 +159,28 @@
     cursor: pointer;
     font-weight: 500;
 }
+a.primary:hover{
+    background: var(--branco);
+    color: var(--preto-botoes);
+    border: 1px solid var(--preto-botoes);
+}
 
 .btn.primary:hover {
     opacity: 0.9;
 }
+
 .atual{
     color: var(--preto-botoes);
+}
+.vazio{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    justify-content: center;
+}
+.vazio p{
+    font-size: 2rem;
+    font-weight: 600;
+    margin-bottom: 16px;
 }

@@ -1,0 +1,34 @@
+<section class="historico">
+    <h2 class="topo">Histórico</h2>
+
+    <div class="links">
+        <a (click)="irCarrinho()">Carrinho</a>
+        <a class="atual">Histórico</a>
+    </div>
+
+    @if (pedidos().length === 0) {
+    <p>Você ainda não realizou nenhuma compra.</p>
+    } @else {
+
+    @for (pedido of pedidos(); track pedido.id) {
+
+    <div class="pedido">
+        <h3>Pedido #{{ pedido.id }}</h3>
+        <p class="data">{{ pedido.data | date:'dd/MM/yyyy HH:mm' }}</p>
+
+        @for (item of pedido.itens; track item.livro.id) {
+        <div class="item">
+            <img class="thumb" [src]="item.livro.imageURL" [alt]="item.livro.titulo">
+
+            <div class="info">
+                <h4 class="titulo">{{ item.livro.titulo }}</h4>
+                <p>Preço: R$ {{ item.livro.preco.toFixed(2) }}</p>
+                <p>Quantidade: {{ item.quantidade }}</p>
+                <strong>Total do pedido: R$ {{ pedido.total.toFixed(2) }}</strong>
+            </div>
+        </div>
+        }
+    </div>
+    }
+    }
+</section>

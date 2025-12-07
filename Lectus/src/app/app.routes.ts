@@ -6,6 +6,7 @@ import { ListaCatalogo } from './features/catalogo/lista-catalogo/lista-catalogo
 import { CardLivro } from './features/catalogo/card-livro/card-livro';
 import { LoginForm } from './features/login/login-form/login-form';
 import { Carrinho } from './features/carrinho/carrinho/carrinho';
+import { Historico } from './features/historico/historico';
 
 
 export const routes: Routes = [
@@ -26,6 +27,7 @@ export const routes: Routes = [
       { path: 'catalogo', component: ListaCatalogo },
       { path: 'catalogo/:id', component: CardLivro },
       { path: 'carrinho', component: Carrinho },
+      { path: 'historico', component: Historico },
       { path: '', redirectTo: 'catalogo', pathMatch: 'full' }
     ]
   },
