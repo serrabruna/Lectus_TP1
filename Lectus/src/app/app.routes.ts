@@ -8,6 +8,7 @@ import { LoginForm } from './features/login/login-form/login-form';
 import { Carrinho } from './features/carrinho/carrinho/carrinho';
 import { AdicionarLivro } from './features//gerenciar/adicionar-livro/adicionar-livro';
 import { GerenciarLivros } from './features/gerenciar/gerenciar-livros/gerenciar-livros';
+import { Historico } from './features/historico/historico';
 
 
 export const routes: Routes = [
@@ -28,7 +29,8 @@ export const routes: Routes = [
       { path: 'catalogo', component: ListaCatalogo },
       { path: 'catalogo/:id', component: CardLivro },
       { path: 'carrinho', component: Carrinho },
-      { path: 'gerenciar-livros',
+      {
+        path: 'gerenciar-livros',
         component: GerenciarLivros,
         children: [
           { path: 'adicionar', component: AdicionarLivro },
@@ -37,6 +39,7 @@ export const routes: Routes = [
           { path: '', redirectTo: 'adicionar', pathMatch: 'full' }
         ]
       },
+      { path: 'historico', component: Historico },
       { path: '', redirectTo: 'catalogo', pathMatch: 'full' }
     ]
   },

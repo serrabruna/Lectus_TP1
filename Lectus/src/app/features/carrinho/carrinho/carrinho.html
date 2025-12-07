@@ -1,14 +1,15 @@
 <section class="carrinho">
     <h2 class="topo">Meu Carrinho</h2>
     <div class="links">
-        <a class="atual">Carrinho</a>
-        <a>Historico</a>
+        <a class="atual" (click)="irCarrinho()">Carrinho</a>
+        <a (click)="irHistorico()">Historico</a>
     </div>
 
     @if(livros().length === 0){
-    <p>Seu carrinho esta vazio</p>
+    <div class="vazio">
+    <p>Seu carrinho está vazio!</p>
     <a class="btn primary" (click)="continuarComprando()">Continuar comprando</a>
-
+    </div>
     }@else{
     <div class="lista">
         @for(item of livros(); track item.livro.id){
