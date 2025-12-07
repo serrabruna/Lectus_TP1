@@ -5,8 +5,9 @@ import { MainLayout } from './core/layouts/main-layout/main-layout';
 import { ListaCatalogo } from './features/catalogo/lista-catalogo/lista-catalogo';
 import { CardLivro } from './features/catalogo/card-livro/card-livro';
 import { LoginForm } from './features/login/login-form/login-form';
-import { AdicionarLivro } from './features//gerenciar/adicionar-livro/adicionar-livro';
+import { AdicionarLivro } from './features/gerenciar/adicionar-livro/adicionar-livro'; 
 import { GerenciarLivros } from './features/gerenciar/gerenciar-livros/gerenciar-livros';
+import { EditarLivro } from './features/gerenciar/editar-livro/editar-livro';
 
 
 export const routes: Routes = [
@@ -30,7 +31,7 @@ export const routes: Routes = [
         component: GerenciarLivros,
         children: [
           { path: 'adicionar', component: AdicionarLivro },
-          //{ path: 'editar', component: EditarLivro },
+          { path: 'editar/:id', component: EditarLivro },
           //{ path: 'deletar', component: DeletarLivro },
           { path: '', redirectTo: 'adicionar', pathMatch: 'full' }
         ]

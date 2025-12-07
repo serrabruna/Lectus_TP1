@@ -50,4 +50,16 @@ export class LivroService {
 
     return of (livroAdicionado).pipe(delay(500));
   }
+
+  simularAtualizacao(livroAtualizado: Livro): Observable<Livro> {
+      this.logger.info('[LivroService] Simulação de atualização de livro (Mock Array).', livroAtualizado.id);
+      const index = this.mockLivros.findIndex(l => l.id === livroAtualizado.id);
+
+      if (index === -1) {
+          return throwError(() => new Error(`Livro com ID ${livroAtualizado.id} não encontrado para atualização.`));
+      }
+      this.mockLivros[index] = livroAtualizado; 
+      
+      return of(livroAtualizado).pipe(delay(300));
+  }
 }
