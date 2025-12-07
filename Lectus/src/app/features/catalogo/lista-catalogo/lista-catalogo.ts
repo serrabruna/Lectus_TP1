@@ -7,10 +7,11 @@ import { Livro } from '../../../model/livro';
 import { CommonModule } from '@angular/common';
 import { CardLivro } from '../card-livro/card-livro';
 import { finalize } from 'rxjs';
+import { Icones } from '../../../core/icones/icones';
 
 @Component({
   selector: 'app-lista-catalogo',
-  imports: [RouterLink, CommonModule, CardLivro],
+  imports: [RouterLink, CommonModule, CardLivro, Icones],
   templateUrl: './lista-catalogo.html',
   styleUrl: './lista-catalogo.css',
 })

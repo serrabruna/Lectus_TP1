@@ -1,7 +1,5 @@
 <section class="catalogo-wrapper">
-    
     <div class="catalogo-header">
-<<<<<<< HEAD
 
         <div class="search-field">
             <i class="bi bi-search search-icon"></i>
@@ -9,94 +7,61 @@
         </div>
         <button class="btn-icon">></button>
 
-=======
+        <app-icones></app-icones>
 
-        <div class="busca-area">
-            <div class="search-field">
-                <i class="bi bi-search"></i>
-                <input type="text" placeholder="Procurar por nome da coleção...">
-            </div>
-            <button class="btn-icon">></button>
-        </div>
-    
-        <div class="usuario-info">
-            <p>Usuário</p>
-            <p class="conta-info">Minha Conta</p>
-        </div>
->>>>>>> Bruna
 
     </div>
+
 
     <div class="alfabeto-filtro">
         @for (letra of alfabeto; track letra) {
-            <span
-                class="letra-link"
-                [class.ativo]="letra === filtroAtivo()"
-                (click)="onFiltroAlfabetico(letra)"
-            >{{ letra }}</span>
+        <span class="letra-link" [class.ativo]="letra === filtroAtivo()" (click)="onFiltroAlfabetico(letra)">{{ letra
+            }}</span>
         }
 
-        <span
-            class="letra-link"
-            [class.ativo]="filtroAtivo() === 'TODOS'"
-            (click)="onFiltroAlfabetico('TODOS')"
-        >TODOS</span>
+        <span class="letra-link" [class.ativo]="filtroAtivo() === 'TODOS'"
+            (click)="onFiltroAlfabetico('TODOS')">TODOS</span>
     </div>
 
 
-<<<<<<< HEAD
     @if (termoBusca().length == 0) {
-        <h3 class="secao-letra">{{ filtroAtivo() }}</h3>
-=======
-    @if (livros().length > 0) {
-        <h3 class="secao-letra">Iniciando com {{ filtroAtivo() }}</h3>
->>>>>>> Bruna
+    <h3 class="secao-letra">{{ filtroAtivo() }}</h3>
     }
-
 
     @if (loading()) {
 
-        <div class="loading-message">
-            Carregando livros, por favor aguarde...
-        </div>
+    <div class="loading-message">
+        Carregando livros, por favor aguarde...
+    </div>
 
     } @else {
 
-        <div class="livros-grid">
+    <div class="livros-grid">
 
-            @for (livro of livros(); track livro.id) {
-                <article class="livro-card"
-                    [class.promo]="livro.empromocao"
-                    [class.esgotado]="livro.estoque === 0"
-                    [routerLink]="['/catalogo', livro.id]"
-                >
+        @for (livro of livros(); track livro.id) {
+        <article class="livro-card" [class.promo]="livro.empromocao" [class.esgotado]="livro.estoque === 0"
+            [routerLink]="['/catalogo', livro.id]">
 
-                    <img [src]="livro.imageURL"
-                         [alt]="livro.titulo"
-<<<<<<< HEAD
-                         class="livro-thumb"
-                         >
-=======
-                         class="livro-thumb">
->>>>>>> Bruna
+            <img [src]="livro.imageURL" [alt]="livro.titulo" class="livro-thumb">
 
-                    <div class="card-content">
-                        <h3 class="livro-titulo">{{ livro.titulo }}</h3>
-                        <p class="livro-autor">{{ livro.autor | uppercase }}</p>
-                        <span class="preco-simples">
-                            R$ {{ livro.preco | currency:'BRL':'symbol':'1.2-2' }}
-                        </span>
-                    </div>
 
-                </article>
-            }
-            @empty {
-                <p class="vazio">
-                    Nenhum livro encontrado para o filtro "{{ filtroAtivo() }}".
-                </p>
-            }
 
-        </div>
+            <div class="card-content">
+                <h3 class="livro-titulo">{{ livro.titulo }}</h3>
+                <p class="livro-autor">{{ livro.autor | uppercase }}</p>
+                <span class="preco-simples">
+                    {{ livro.preco | currency:'BRL':'symbol':'1.2-2' }}
+                </span>
+            </div>
 
+        </article>
+        }
+        @empty {
+        <p class="vazio">
+            Nenhum livro encontrado para o filtro "{{ filtroAtivo() }}".
+        </p>
+        }
+
+    </div>
     }
 </section>

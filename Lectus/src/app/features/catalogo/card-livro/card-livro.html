@@ -1,6 +1,6 @@
 @if (livro()) {
 
-<article class="produto">
+<article class="livro">
 
     <h1 class="topo">Catálogo</h1>
 
@@ -44,18 +44,36 @@
             <app-quantidade-controle [(contador)]="contador" />
 
             <div class="acoes">
-                <button class="btn" (click)="onView()">Detalhes</button>
                 @if (contador() > 0) {
                 <button class="btn" (click)="onAdd()">Adicionar</button>
                 }
             </div>
             <p class="sinopse">{{ livro()!.sinopse }}</p>
+            <div class="Detalhes">
+                <button class="btn" (click)="onView()">Detalhes</button>
+                @if(mostrarDetalhes()){
+                <p class="texto-detalhes">
+                    FICHA TÉCNICA
+                    <br>
+                    Autor: J.K. Rowling<br>
+                    Páginas: 352<br>
+                    Editora: Rocco<br>
+                    Idioma: PORTUGUES<br>
+                    Encadernação: CAPA DURA<br>
+                    ISBN-13: 9788532530431<br>
+
+                    ASSUNTO: Teatro<br>
+
+                    DIMENSÕES<br>
+                    Altura: 23,00cm<br>
+                    Largura: 16,00cm<br>
+                    Espessura: 2,00cm<br>
+                    Peso: 0,401kgv
+                </p>
+                }
+            </div>
         </div>
-
     </div>
-
-
-
 </article>
 
 }

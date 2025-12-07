@@ -1,0 +1,24 @@
+.icones{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    margin-left: 10px;
+}
+
+.info {
+    font-size: 0.9rem;
+    color: var(--cinza);
+    margin-left: 15px;
+    margin-top: 10px;
+    text-align: center;
+
+}
+.info .icon-info {
+    color: var(--preto-botoes);
+    font-weight: 600;
+}
+
+.top-icon{
+    font-size: 24px;
+    color: var(--azul-principal);
+}
