@@ -5,6 +5,7 @@ import { MainLayout } from './core/layouts/main-layout/main-layout';
 import { ListaCatalogo } from './features/catalogo/lista-catalogo/lista-catalogo';
 import { CardLivro } from './features/catalogo/card-livro/card-livro';
 import { LoginForm } from './features/login/login-form/login-form';
+import { AdicionarLivro } from './features/catalogo/gerenciar/adicionar-livro/adicionar-livro';
 
 
 export const routes: Routes = [
@@ -24,6 +25,7 @@ export const routes: Routes = [
     children: [
       { path: 'catalogo', component: ListaCatalogo },
       { path: 'catalogo/:id', component: CardLivro },
+      { path: 'adicionar-livro', component: AdicionarLivro},
       { path: '', redirectTo: 'catalogo', pathMatch: 'full' }
     ]
   },

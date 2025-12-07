@@ -7,11 +7,8 @@
         </div>
         <button class="btn-icon">></button>
 
-<<<<<<< HEAD
-=======
         <app-icones></app-icones>
 
->>>>>>> Victoria
 
     </div>
 
@@ -28,7 +25,7 @@
 
 
     @if (termoBusca().length == 0) {
-        <h3 class="secao-letra">{{ filtroAtivo() }}</h3>
+    <h3 class="secao-letra">{{ filtroAtivo() }}</h3>
     }
 
     @if (loading()) {
@@ -45,32 +42,7 @@
         <article class="livro-card" [class.promo]="livro.empromocao" [class.esgotado]="livro.estoque === 0"
             [routerLink]="['/catalogo', livro.id]">
 
-<<<<<<< HEAD
-                    <img [src]="livro.imageURL"
-                         [alt]="livro.titulo"
-                         class="livro-thumb"
-                         >
-
-                    <div class="card-content">
-                        <h3 class="livro-titulo">{{ livro.titulo }}</h3>
-                        <p class="livro-autor">{{ livro.autor | uppercase }}</p>
-                        <span class="preco-simples">
-                            {{ livro.preco | currency:'BRL':'symbol':'1.2-2' }}
-                        </span>
-                    </div>
-
-                </article>
-            }
-            @empty {
-                <p class="vazio">
-                    Nenhum livro encontrado.
-                </p>
-            }
-=======
             <img [src]="livro.imageURL" [alt]="livro.titulo" class="livro-thumb">
-
-
->>>>>>> Victoria
 
             <div class="card-content">
                 <h3 class="livro-titulo">{{ livro.titulo }}</h3>
@@ -81,6 +53,7 @@
             </div>
 
         </article>
+
         }
         @empty {
         <p class="vazio">

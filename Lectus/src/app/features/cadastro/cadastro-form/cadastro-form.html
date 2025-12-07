@@ -42,6 +42,19 @@
                     Telefone é obrigatório.
                 </small>
             </div>
+
+            <div class="campo campo-full">
+                <label for="tipo_usuario">Tipo de Usuário: </label>
+                <select id="tipo_usuario" name="tipo_usuario" 
+                    [(ngModel)]="novoUsuario.tipo_usuario" required>
+                    @for (tipo of tiposUsuario; track tipo) {
+                        <option [value]="tipo">{{ tipo }}</option>
+                    }
+                </select>
+                <small class="erro" [hidden]="!(formulario.controls['tipo_usuario']?.dirty && formulario.controls['tipo_usuario'].invalid)">
+                    O tipo de usuário é obrigatório.
+                </small>
+            </div>
         </div>
 
         <div class="botoes-formulario">

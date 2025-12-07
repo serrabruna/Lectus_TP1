@@ -1,35 +1,76 @@
-h1{
+.add-livro-wrapper {
+    display: flex;
+    gap: 30px;
+    max-width: 1400px;
+    margin: 40px auto;
+    position: relative; 
+    z-index: 10; 
+    padding-bottom: 50px; 
+}
+
+.form-area {
+    flex: 3;
+}
+
+.titulo{
+    margin: 15px;
+}
+
+.titulo h1 {
     font-weight: 700;
     font-size: 2.2rem;
     color: var(--preto-botoes);
-    text-align: center;
     margin-bottom: 5px;
 }
 
-p{
-    font-size: 1rem;
-    color: var(--cinza);
-    text-align: center;
-    margin-bottom: 25px;
-}
-
-.form-container {
-    max-width: 1000px;
-    margin: 40px auto;
+.preview-area {
+    flex: 1;
     padding: 30px;
     background-color: var(--branco);
     border-radius: 12px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-
+    text-align: center;
+    height: fit-content;
 }
 
-.form-container h2 {
-    font-size: 1.5rem;
-    font-weight: 600;
+.preview-area h3 {
     color: var(--preto-botoes);
-    border-bottom: 1px solid #e0e0e0;
-    padding-bottom: 10px;
+    margin-bottom: 10px;
+}
+
+.preview-area p {
+    font-size: 0.9rem;
+    color: var(--cinza);
     margin-bottom: 20px;
+}
+
+.preview-img {
+    max-width: 100%;
+    height: auto;
+    max-height: 400px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    object-fit: contain;
+}
+
+.placeholder {
+    height: 300px;
+    background-color: #f0f0f0;
+    color: var(--cinza);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px dashed #ccc;
+    border-radius: 4px;
+    padding: 10px;
+}
+
+.form-container {
+    padding: 30px;
+    background-color: var(--branco);
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    margin-left: 20px;
 }
 
 .form-grid {
@@ -40,8 +81,7 @@ p{
 }
 
 .campo-full {
-    grid-column: 1 / -1; 
-
+    grid-column: 1 / -1;
 }
 
 .campo {
@@ -59,9 +99,10 @@ p{
 
 .campo input[type="text"],
 .campo input[type="email"],
-.campo input[type="password"],
-.campo input[type="tel"],
-.campo select {
+.campo input[type="number"],
+.campo input[type="date"],
+.campo select,
+.campo textarea { 
     padding: 12px 15px;
     border: 1px solid #d0d0d0; 
     border-radius: 8px;
@@ -71,21 +112,31 @@ p{
     width: 100%;
 }
 
+.campo textarea {
+    min-height: 100px;
+    resize: vertical;
+}
+
 .campo input:focus,
-.campo select:focus {
+.campo select:focus,
+.campo textarea:focus { 
     outline: none;
     border-color: var(--azul-principal);
     box-shadow: 0 0 0 1px var(--azul-principal);
     background-color: var(--branco);
 }
 
-.campo input.ng-dirty.ng-invalid {
+.campo input.ng-dirty.ng-invalid,
+.campo textarea.ng-dirty.ng-invalid,
+.campo select.ng-dirty.ng-invalid { 
     border-color: #e74c3c; 
     background-color: #fffafa; 
 }
 
 
-.campo input.ng-dirty.ng-valid {
+.campo input.ng-dirty.ng-valid,
+.campo textarea.ng-dirty.ng-valid,
+.campo select.ng-dirty.ng-valid { 
     border-color: #2ecc71; 
     background-color: #f8fff8; 
 }
@@ -93,6 +144,7 @@ p{
 
 .botoes-formulario {
     margin: 30px 15px;
+    text-align: center; 
 }
 
 .botoes-formulario button {
@@ -127,4 +179,27 @@ p{
     background-color: #fdd;
     border: 1px solid #e74c3c;
     color: #e74c3c;
+}
+
+.campo.checkbox-container {
+    flex-direction: row;
+    align-items: center;
+    gap: 10px; 
+    padding-top: 10px; 
+    padding-bottom: 10px; 
+}
+
+.campo.checkbox-container label {
+    margin-bottom: 0; 
+    flex-grow: 0; 
+}
+
+.campo.checkbox-container input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+    margin: 0; 
+    padding: 0;
+    background-color: transparent;
+    border: 1px solid var(--cinza);
+    box-shadow: none; 
 }
