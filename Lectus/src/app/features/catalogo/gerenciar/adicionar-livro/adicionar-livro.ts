@@ -1,9 +1,12 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, signal } from '@angular/core';
+import { Component, inject, Signal, signal } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { LivroService } from '../../service/livro.service';
 import { Livro } from '../../../../model/livro';
+import { CategoriaService } from '../../../categorias/service/categoria.service';
+import { toSignal } from '@angular/core/rxjs-interop';
+import { Categoria } from '../../../../model/categoria';
 
 @Component({
   selector: 'app-adicionar-livro',
@@ -14,9 +17,12 @@ import { Livro } from '../../../../model/livro';
 export class AdicionarLivro {
   private router = inject(Router);
   private livroService = inject(LivroService);
+  private categoriaService = inject(CategoriaService);
 
   enviando = signal(false);
   mensagem = signal('');
+
+  categorias: Signal<Categoria[]> = toSignal(this.categoriaService.listar(), { initialValue: [] });
 
   novoLivro: Livro = {
     id: 0, 
@@ -57,6 +63,10 @@ export class AdicionarLivro {
         this.enviando.set(false);
       }
     })
+  }
+
+  onDataPublicacaoChange(dateString: string) {
+    this.novoLivro.data_publicacao = dateString ? new Date(dateString) : new Date();
   }
 
 }
