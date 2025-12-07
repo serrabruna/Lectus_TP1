@@ -5,7 +5,8 @@ import { MainLayout } from './core/layouts/main-layout/main-layout';
 import { ListaCatalogo } from './features/catalogo/lista-catalogo/lista-catalogo';
 import { CardLivro } from './features/catalogo/card-livro/card-livro';
 import { LoginForm } from './features/login/login-form/login-form';
-import { AdicionarLivro } from './features/catalogo/gerenciar/adicionar-livro/adicionar-livro';
+import { AdicionarLivro } from './features//gerenciar/adicionar-livro/adicionar-livro';
+import { GerenciarLivros } from './features/gerenciar/gerenciar-livros/gerenciar-livros';
 
 
 export const routes: Routes = [
@@ -25,7 +26,15 @@ export const routes: Routes = [
     children: [
       { path: 'catalogo', component: ListaCatalogo },
       { path: 'catalogo/:id', component: CardLivro },
-      { path: 'adicionar-livro', component: AdicionarLivro},
+      { path: 'gerenciar-livros',
+        component: GerenciarLivros,
+        children: [
+          { path: 'adicionar', component: AdicionarLivro },
+          //{ path: 'editar', component: EditarLivro },
+          //{ path: 'deletar', component: DeletarLivro },
+          { path: '', redirectTo: 'adicionar', pathMatch: 'full' }
+        ]
+      },
       { path: '', redirectTo: 'catalogo', pathMatch: 'full' }
     ]
   },

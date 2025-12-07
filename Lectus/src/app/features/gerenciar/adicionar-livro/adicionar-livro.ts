@@ -2,11 +2,11 @@ import { CommonModule } from '@angular/common';
 import { Component, inject, Signal, signal } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
-import { LivroService } from '../../service/livro.service';
-import { Livro } from '../../../../model/livro';
-import { CategoriaService } from '../../../categorias/service/categoria.service';
+import { LivroService } from '../../catalogo/service/livro.service';
+import { Livro } from '../../../model/livro';
+import { CategoriaService } from '../../categorias/service/categoria.service';
 import { toSignal } from '@angular/core/rxjs-interop';
-import { Categoria } from '../../../../model/categoria';
+import { Categoria } from '../../../model/categoria';
 
 @Component({
   selector: 'app-adicionar-livro',
