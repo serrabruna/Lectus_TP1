@@ -24,7 +24,6 @@
 
     @if (termoBusca().length == 0) {
     <h3 class="secao-letra">{{ filtroAtivo() }}</h3>
-
     }
 
     @if (loading()) {
@@ -52,6 +51,7 @@
             </div>
 
         </article>
+
         }
         @empty {
         <p class="vazio">

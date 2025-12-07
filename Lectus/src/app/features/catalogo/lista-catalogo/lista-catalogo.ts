@@ -4,7 +4,7 @@ import { LoggerService } from '../../../core/services/logger/logger.service';
 import { Router, RouterLink } from '@angular/router';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { Livro } from '../../../model/livro';
-import { CommonModule } from '@angular/common';
+import { CommonModule} from '@angular/common';
 import { CardLivro } from '../card-livro/card-livro';
 import { Icones } from '../../../core/icones/icones';
 import { finalize } from 'rxjs';
@@ -13,7 +13,7 @@ import { finalize } from 'rxjs';
 
 @Component({
   selector: 'app-lista-catalogo',
-  imports: [RouterLink, CommonModule, CardLivro, Icones],
+  imports: [RouterLink, CommonModule, Icones],
   templateUrl: './lista-catalogo.html',
   styleUrl: './lista-catalogo.css',
 })
@@ -77,7 +77,6 @@ export class ListaCatalogo {
     const inputElement = event.target as HTMLInputElement;
     this.termoBusca.set(inputElement.value);
   }
-
 
   private books = toSignal<Livro[], Livro[]>(
     this.livroService.listar().pipe(finalize(() => this.loading.set(false))),

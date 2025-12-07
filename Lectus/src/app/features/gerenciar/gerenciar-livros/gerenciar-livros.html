@@ -1,0 +1,27 @@
+<section class="gerenciamento-wrapper">
+    <div class="menu-abas">
+        <h1>Gerenciar Livros</h1>
+
+        <nav class="abas-menu">
+            <a routerLink="adicionar" 
+               routerLinkActive="aba-ativa"
+               class="aba-item">
+                Adicionar
+            </a>
+            
+            <a routerLink="editar" 
+               routerLinkActive="aba-ativa"
+               class="aba-item">
+                Editar
+            </a>
+            
+            <a routerLink="deletar" 
+               routerLinkActive="aba-ativa"
+               class="aba-item">
+                Deletar
+            </a>
+        </nav>
+    </div>
+
+    <router-outlet></router-outlet>
+</section>
