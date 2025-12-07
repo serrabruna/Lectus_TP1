@@ -12,7 +12,6 @@
     gap: 24px;
     width: 100%;
     max-width: 900px;
-    margin: 0 auto;
 
 }
 
@@ -80,6 +79,7 @@
     background-color: var(--preto-botoes);
     color: var(--branco);
     font-size: 0.9rem;
+    margin-bottom: 20px;
 }
 
 .btn:hover {
