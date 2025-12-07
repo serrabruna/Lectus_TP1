@@ -1,12 +1,20 @@
 <section class="icones">
-        <div class="info">
-            <i class="bi bi-person top-icon"></i>
-            <p class="icon-info">Minha Conta</p>
+    <div class="info">
+        <i class="bi bi-person top-icon"></i>
+        <p class="icon-info">Minha Conta</p>
+    </div>
+
+    <div class="info">
+        <div class="icon-wrapper">
+            <a routerLink="/carrinho" aria-label="Carrinho">
+                <i class="bi bi-cart top-icon"></i>
+            </a>
+
+            @if (qtdCarrinho() > 0) {
+            <span class="badge">{{ qtdCarrinho() }}</span>
+            }
         </div>
 
-        <div class="info">
-            <i class="bi bi-cart top-icon"></i>
-            <p class="icon-info">Meu Carrinho</p>
-        </div>
-    </section>
-
+        <p class="icon-info">Meu Carrinho</p>
+    </div>
+</section>

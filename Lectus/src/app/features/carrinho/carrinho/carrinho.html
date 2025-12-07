@@ -1,0 +1,42 @@
+<section class="carrinho">
+    <h2 class="topo">Meu Carrinho</h2>
+    <div class="links">
+        <a class="atual">Carrinho</a>
+        <a>Historico</a>
+    </div>
+
+    @if(livros().length === 0){
+    <p>Seu carrinho esta vazio</p>
+    <a class="btn primary" (click)="continuarComprando()">Continuar comprando</a>
+
+    }@else{
+    <div class="lista">
+        @for(item of livros(); track item.livro.id){
+        <div class="item">
+            <img class="thump" [src]=" item.livro.imageURL" [alt]="item.livro.titulo">
+            <div class="info">
+                <h3>{{item.livro.titulo}}</h3>
+                <p class="preco">R$ {{(item.livro.preco).toFixed(2)}}</p>
+                <div class="qtd">
+                    <label>Quantidade</label>
+                    <input type="number" min="1" [value]="item.quantidade" (input)="atualizar(item.livro.id, $event)">
+                </div>
+                <div class="acoes">
+                    <button class="btn ghost" (click)="remover(item.livro.id)">Remover</button>
+                </div>
+            </div>
+        </div>
+        }
+
+    </div>
+    <div class="resumo">
+        <h2>Resumo: </h2>
+        <p>Total: <strong>R${{ total().toFixed(2) }}</strong></p>
+        <p>Desconto: <strong>R$0.00</strong></p>
+        <div class="botoes">
+            <button class="btn ghost" (click)="limpar()">Limpar Carrinho</button>
+            <button class="btn primary" (click)="checkout()">Finalizar Compra</button>
+        </div>
+    </div>
+    }
+</section>

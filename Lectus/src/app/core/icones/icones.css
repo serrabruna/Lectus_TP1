@@ -22,3 +22,24 @@
     font-size: 24px;
     color: var(--azul-principal);
 }
+
+.badge {
+  position: absolute;
+  top: -8px;
+  right: -10px;
+  background: #d32f2f;
+  color: #fff;
+  padding: 2px 6px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  min-width: 18px;
+  text-align: center;
+  border: 2px solid #fff;
+  border-radius: 999px;
+}
+
+
+.icon-wrapper {
+  position: relative;
+  display: inline-block;
+}

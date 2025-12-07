@@ -41,7 +41,8 @@
                 }
             </div>
 
-            <app-quantidade-controle [(contador)]="contador" />
+            <app-quantidade-controle [contador]="contador()" (contadorChange)="contador.set($event)" />
+
 
             <div class="acoes">
                 @if (contador() > 0) {
