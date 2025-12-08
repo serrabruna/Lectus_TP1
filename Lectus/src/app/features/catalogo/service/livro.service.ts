@@ -62,4 +62,17 @@ export class LivroService {
       
       return of(livroAtualizado).pipe(delay(300));
   }
+
+  simularDeletar(id: number): Observable<void>{
+    this.logger.warn('[LivroService] Simulação deletar Livro (Mock Array).', id);
+    const index = this.mockLivros.findIndex(l => l.id === id);
+
+    if(index === -1){
+        return throwError(() => new Error(`Livro com ID ${id} não encontrado.`));
+    }
+
+    this.mockLivros.splice(index, 1);
+
+    return of(undefined).pipe(delay(300));
+  }
 }

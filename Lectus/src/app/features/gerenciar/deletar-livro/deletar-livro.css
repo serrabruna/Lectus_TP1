@@ -1,0 +1,154 @@
+.gerenciamento-wrapper {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.delete-card {
+    display: flex;
+    gap: 30px;
+    max-width: 1000px;
+    width: 100%; 
+    background-color: var(--branco);
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
+}
+
+.image-area {
+    flex-shrink: 0;
+    width: 250px; 
+    text-align: center;
+}
+
+.capa {
+    width: 100%;
+    height: auto;
+    max-height: 350px;
+    object-fit: contain;
+    cursor: pointer;
+    overflow: hidden;
+    transition: box-shadow 0.2s, transform 0.2s;
+}
+
+.livro-detalhes {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.titulo {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--preto-botoes);
+    margin-bottom: 5px;
+}
+
+.autor {
+    font-size: 1rem;
+    color: var(--cinza);
+    margin-bottom: 15px;
+}
+
+.dadoslivro-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5px 15px;
+    font-size: 0.9rem;
+    color: var(--preto-botoes);
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #ccc;
+}
+
+.dados-grid span {
+    font-weight: 700;
+    color: var(--cinza);
+    margin-right: 5px;
+}
+
+.warning-text {
+    color: #e74c3c;
+    font-weight: bold;
+    margin-top: 15px;
+}
+
+.button-row {
+    display: flex;
+    gap: 15px;
+    margin-top: 20px;
+    padding-top: 20px;
+}
+
+.btn-acao {
+    padding: 12px 25px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    font-weight: 700;
+    text-decoration: none;
+    text-align: center;
+    transition: opacity 0.2s;
+    width: 200px;
+    color: var(--branco);
+}
+
+.button-row button.btn-deletar-confirmar {
+    background-color: var(--preto-botoes); 
+    color: var(--branco); /* Cor branca reforçada */
+}
+
+.button-row button.btn-deletar-confirmar:hover:not(.disabled) {
+    background-color: #333;
+    color: var(--branco); /* Garante a cor branca no hover */
+}
+
+.btn-deletar-confirmar {
+    background-color: var(--preto-botoes); 
+    color: var(--branco) !important;
+}
+
+.btn-deletar-confirmar:hover:not(.disabled) {
+    background-color: #333;
+    color: var(--branco) !important;
+}
+
+.btn-cancelar-deletar {
+    background-color: #fdd; 
+    color: #e74c3c; 
+    border: 1px solid #e74c3c;
+}
+
+.btn-cancelar-deletar:hover:not(.disabled) {
+    opacity: 0.9;
+    background-color: #ffe6e6;
+}
+
+.disabled {
+    pointer-events: none;
+    opacity: 0.6;
+}
+
+.loading-message, .mensagem {
+    margin-top: 20px;
+    width: 100%;
+    max-width: 1000px;
+    text-align: center;
+}
+.mensagem.error-message {
+    background-color: #fdd;
+    border: 1px solid #e74c3c;
+    color: #e74c3c;
+}
+
+.titulo h2{
+    font-size: 1.5rem;
+}
+
+.titulo{
+    margin-left: 20px;
+    margin-top: 30px;
+    padding-left: 20px;
+}

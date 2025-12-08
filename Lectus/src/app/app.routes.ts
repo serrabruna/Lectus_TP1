@@ -10,6 +10,7 @@ import { Carrinho } from './features/carrinho/carrinho/carrinho';
 import { GerenciarLivros } from './features/gerenciar/gerenciar-livros/gerenciar-livros';
 import { EditarLivro } from './features/gerenciar/editar-livro/editar-livro';
 import { Historico } from './features/historico/historico';
+import { DeletarLivro } from './features/gerenciar/deletar-livro/deletar-livro';
 
 
 export const routes: Routes = [
@@ -36,7 +37,7 @@ export const routes: Routes = [
         children: [
           { path: 'adicionar', component: AdicionarLivro },
           { path: 'editar/:id', component: EditarLivro },
-          //{ path: 'deletar', component: DeletarLivro },
+          { path: 'deletar/:id', component: DeletarLivro },
           { path: '', redirectTo: 'adicionar', pathMatch: 'full' }
         ]
       },
