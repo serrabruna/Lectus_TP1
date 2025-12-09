@@ -1,0 +1,131 @@
+<!-- cep: string;
+  rua: string;
+  numero: string;
+  bairro: string;
+  cidade: string;
+  estado: string;
+  complemento?: string; -->
+<section class="checkout">
+    <div class="form-area">
+        <section class="form-container">
+            <form #formulario="ngForm" (ngSubmit)="onSubmit(formulario)" novalidate>
+                <h2 class="titulo">Dados do Comprador:</h2>
+                <div class="form-grid">
+                    <div class="campo campo-full">
+                        <label for="nome">Nome: </label>
+                        <input type="text" id="nome" name="nome" [(ngModel)]="nomeUsuario" required minlength="8"
+                            placeholder="Nome">
+                        <small class="erro"
+                            [hidden]="!(formulario.controls['nome']?.dirty && formulario.controls['nome'].invalid)">
+                            O *Nome** é obrigatório e deve ter ao menos 8 caracteres.
+                        </small>
+                    </div>
+                </div>
+
+
+                <h2 class="titulo">Endereço:</h2>
+                <div class="form-grid">
+                    <div class="campo campo-full">
+                        <label for="cep">CEP: </label>
+                        <input type="text" id="cep" name="cep" [(ngModel)]="novoEndereco.cep" required minlength="8"
+                            placeholder="CEP">
+                        <small class="erro"
+                            [hidden]="!(formulario.controls['cep']?.dirty && formulario.controls['cep'].invalid)">
+                            O **CEP** é obrigatório e deve ter ao menos 8 caracteres.
+                        </small>
+                    </div>
+                </div>
+
+                <div class="form-grid">
+                    <div class="campo campo-full">
+                        <label for="rua">Rua: </label>
+                        <input type="text" id="rua" name="rua" [(ngModel)]="novoEndereco.rua" required minlength="8"
+                            placeholder="Rua">
+                        <small class="erro"
+                            [hidden]="!(formulario.controls['rua']?.dirty && formulario.controls['rua'].invalid)">
+                            O Nome da **Rua** é obrigatório e deve ter ao menos 8 caracteres.
+                        </small>
+                    </div>
+                </div>
+
+                <div class="form-grid">
+                    <div class="campo">
+                        <label for="numero">Numero: </label>
+                        <input type="number" id="numero" name="numero" [(ngModel)]="novoEndereco.numero" required
+                            min="1" step="1" placeholder="Número ">
+                        <small class="erro"
+                            [hidden]="!(formulario.controls['numero']?.dirty && formulario.controls['numero'].invalid)">
+                            O **Numero** é obrigatório.
+                        </small>
+                    </div>
+
+                    <div class="campo">
+                        <label for="bairro">Bairro: </label>
+                        <input type="text" id="bairro" name="bairro" [(ngModel)]="novoEndereco.bairro" required
+                            placeholder="Bairro">
+                        <small class="erro"
+                            [hidden]="!(formulario.controls['bairro']?.dirty && formulario.controls['bairro'].invalid)">
+                            O **Bairro** é obrigatório.
+                        </small>
+                    </div>
+                </div>
+
+                <div class="form-grid">
+                    <div class="campo">
+                        <label for="cidade">Cidade: </label>
+                        <input type="text" id="cidade" name="cidade" [(ngModel)]="novoEndereco.cidade" required
+                            placeholder="Cidade">
+                        <small class="erro"
+                            [hidden]="!(formulario.controls['cidade']?.dirty && formulario.controls['cidade'].invalid)">
+                            A **Cidade** é obrigatória.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-grid">
+                    <div class="campo">
+                        <label for="estado">Estado: </label>
+                        <input type="text" id="estado" name="estado" [(ngModel)]="novoEndereco.estado" required
+                            placeholder="Estado">
+                        <small class="erro"
+                            [hidden]="!(formulario.controls['estado']?.dirty && formulario.controls['estado'].invalid)">
+                            O **Estado** é obrigatório.
+                        </small>
+                    </div>
+                </div>
+
+                <div class="form-grid">
+                    <div class="campo">
+                        <label for="complemento">Complemento: </label>
+                        <input type="text" id="complemento" name="complemento" [(ngModel)]="novoEndereco.complemento"
+                            placeholder="Complemento">
+                    </div>
+                </div>
+                <h2 class="titulo">Forma de Pagamento:</h2>
+
+                <div class="campo campo-full">
+                    <label for="metodo">Método de Pagamento: </label>
+                    <select id="metodo" name="metodo" [(ngModel)]="metodoSelecionado" required>
+                        <option value="" disabled selected>Selecione</option>
+
+                        @for (m of metodos; track m) {
+                        <option [value]="m">{{ m }}</option>
+                        }
+                    </select>
+
+                    <small class="erro"
+                        [hidden]="!(formulario.controls['metodo']?.dirty && formulario.controls['metodo'].invalid)">
+                        O Método de Pagamento é obrigatório.
+                    </small>
+                </div>
+
+                <button type="submit" class="botoes-formulario">
+                    Finalizar Pedido
+                </button>
+
+                @if (mensagem()) {
+                <p class="mensagem">{{ mensagem() }}</p>
+                }
+            </form>
+        </section>
+    </div>
+</section>

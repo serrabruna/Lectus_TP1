@@ -9,6 +9,8 @@ import { Carrinho } from './features/carrinho/carrinho/carrinho';
 import { AdicionarLivro } from './features//gerenciar/adicionar-livro/adicionar-livro';
 import { GerenciarLivros } from './features/gerenciar/gerenciar-livros/gerenciar-livros';
 import { Historico } from './features/historico/historico';
+import { Checkout } from './features/checkout/checkout';
+import { ResumoPedido } from './features/resumo-pedido/resumo-pedido';
 
 
 export const routes: Routes = [
@@ -40,6 +42,9 @@ export const routes: Routes = [
         ]
       },
       { path: 'historico', component: Historico },
+      { path: 'checkout', component: Checkout },
+      { path: 'resumo-pedido', component: ResumoPedido },
+
       { path: '', redirectTo: 'catalogo', pathMatch: 'full' }
     ]
   },
