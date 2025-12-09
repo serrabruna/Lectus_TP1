@@ -33,18 +33,17 @@ export class Carrinho {
     this.carrinho.limpar();
   }
   checkout() {
-    const pedido = {
-      id: Date.now(),
-      data: new Date(),
-      itens: this.livros(),
-      total: this.total()
-    };
+    // const pedido = {
+    //   id: Date.now(),
+    //   data: new Date(),
+    //   itens: this.livros(),
+    //   total: this.total()
+    // };
 
-    this.historicoService.registrarPedido(pedido);
+    // this.historicoService.registrarPedido(pedido);
 
-    alert(`Simulando checkout. Total: R$ ${this.total().toFixed(2)}`);
-    this.limpar();
-    this.router.navigate(['/livros']);
+    // alert(`Simulando checkout. Total: R$ ${this.total().toFixed(2)}`);
+    this.router.navigate(['/checkout']);
 
   }
   continuarComprando() {
