@@ -2,8 +2,15 @@
     <h2 class="topo">Histórico</h2>
 
     <div class="links">
-        <a (click)="irCarrinho()">Carrinho</a>
-        <a class="atual">Histórico</a>
+        <a routerLink="/carrinho" 
+           routerLinkActive="aba-ativa" 
+           [routerLinkActiveOptions]="{exact: true}"
+           class="aba-item">Carrinho</a>
+        
+        <a routerLink="/historico" 
+           routerLinkActive="aba-ativa" 
+           [routerLinkActiveOptions]="{exact: true}"
+           class="aba-item">Histórico</a>
     </div>
 
     @if (pedidos().length === 0) {

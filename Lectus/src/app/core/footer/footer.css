@@ -22,10 +22,14 @@ footer{
     padding: 10px;
 }
 
-.navegacao-footer{
+.navegacao-footer ul{
     display: flex;
     flex-direction: row;
-    margin-left: 50px;
+    justify-content: center;
+}
+
+.navegacao-footer li{
+    margin-right: 30px;
 }
 
 .navegacao-footer a{

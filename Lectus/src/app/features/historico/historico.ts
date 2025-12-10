@@ -1,11 +1,11 @@
 import { Component, inject } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, RouterLinkActive, RouterLinkWithHref } from '@angular/router';
 import { HistoricoService } from '../../features/historico/services/historico/historico.service';
 import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-historico',
-  imports: [CommonModule],
+  imports: [CommonModule, RouterLinkActive, RouterLinkWithHref],
   templateUrl: './historico.html',
   styleUrl: './historico.css',
 })

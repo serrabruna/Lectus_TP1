@@ -8,6 +8,7 @@ import { LivroService } from '../service/livro.service';
 import { DescontoPipe } from '../../../shared/desconto-pipe/desconto-pipe';
 import { QuantidadeControle } from '../../../shared/quantidade-controle/quantidade-controle';
 import { Router } from '@angular/router';
+import { Icones } from "../../../core/icones/icones";
 
 
 @Component({
@@ -16,8 +17,9 @@ import { Router } from '@angular/router';
   imports: [
     CurrencyPipe,
     DescontoPipe,
-    QuantidadeControle
-  ],
+    QuantidadeControle,
+    Icones
+],
   templateUrl: './card-livro.html',
   styleUrl: './card-livro.css',
 })

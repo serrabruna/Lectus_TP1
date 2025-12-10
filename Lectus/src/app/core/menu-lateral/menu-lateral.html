@@ -1,15 +1,22 @@
 <nav class="navbar">
     <img src="images/logo2.png" alt="logo">
     <ul>
-        <li><a href="">Catálogo</a></li>
-        <li><a href="">Gerenciar Livros</a></li>
-        <li><a href="">Meu Carrinho</a></li>
-        <li><a href="">Painel de Controle</a></li>
-    </ul>
+        <li class="menu-item" routerLinkActive="active">
+            <a routerLink="/catalogo">
+                <span class="icon">→</span> Catálogo
+            </a>
+        </li>
 
-    <ul>
-        <li><a href="">Configurações</a></li>
-        <li><a href="">Suporte</a></li>
-        <li><a href="">Sair</a></li>
+        <li class="menu-item" routerLinkActive="active">
+            <a routerLink="/gerenciar-livros">
+                <span class="icon">→</span> Gerenciar Livros
+            </a>
+        </li>
+
+        <li class="menu-item" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+            <a routerLink="/carrinho">
+                <span class="icon">→</span> Meu Carrinho
+            </a>
+        </li>
     </ul>
 </nav>

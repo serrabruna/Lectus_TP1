@@ -1,8 +1,15 @@
 <section class="carrinho">
     <h2 class="topo">Meu Carrinho</h2>
     <div class="links">
-        <a class="atual" (click)="irCarrinho()">Carrinho</a>
-        <a (click)="irHistorico()">Historico</a>
+        <a routerLink="/carrinho" 
+           routerLinkActive="aba-ativa" 
+           [routerLinkActiveOptions]="{exact: true}"
+           class="aba-item">Carrinho</a>
+        
+        <a routerLink="/historico" 
+           routerLinkActive="aba-ativa" 
+           [routerLinkActiveOptions]="{exact: true}"
+           class="aba-item">Histórico</a>
     </div>
 
     @if(livros().length === 0){

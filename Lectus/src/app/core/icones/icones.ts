@@ -11,8 +11,6 @@ import { MatIconModule } from '@angular/material/icon';
   styleUrl: './icones.css',
 })
 export class Icones {
-
-  tituloLoja = input.required<string>();
   private carrinho = inject(CarrinhoService);
   qtdCarrinho = this.carrinho.qtdItens;
 }

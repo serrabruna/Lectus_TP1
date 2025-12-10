@@ -1,12 +1,12 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { CarrinhoService } from '../services/carrinho/carrinho.service';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { HistoricoService } from '../../historico/services/historico/historico.service';
 
 @Component({
   selector: 'app-carrinho',
-  imports: [CommonModule],
+  imports: [CommonModule, RouterModule],
   templateUrl: './carrinho.html',
   styleUrl: './carrinho.css',
 })

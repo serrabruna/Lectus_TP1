@@ -40,3 +40,9 @@
     color: var(--preto-botoes);
     padding: 15px
 }
+
+.top-icon {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+}
