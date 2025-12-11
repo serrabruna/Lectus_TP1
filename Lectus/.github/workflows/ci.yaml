@@ -18,7 +18,7 @@ jobs:
     - name: Checkout do Código
       uses: actions/checkout@v4
 
-    - name: Configurar Node.js (Vercel usa Node)
+    - name: Configurar Node.js
       uses: actions/setup-node@v4
       with:
         node-version: '20'
@@ -26,11 +26,8 @@ jobs:
     - name: Instalar Dependências
       run: npm install
 
-    # 1. ETAPA DE TESTE (CI)
     - name: Rodar Testes Unitários do Angular
       run: npm run test -- --watch=false --browsers=ChromeHeadless
 
-    # 2. ETAPA DE BUILD
     - name: Fazer Build para Produção
       run: npm run build -- --configuration=production
-      
