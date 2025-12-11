@@ -1,0 +1,35 @@
+name: Frontend CI - Angular Tests
+
+on:
+  push:
+    branches:
+      - main
+      - develop
+  pull_request:
+    branches:
+      - main
+      - develop
+
+jobs:
+  test_and_build:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout do Codigo
+      uses: actions/checkout@v4
+
+    - name: Configurar Node.js (Vercel usa Node)
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20'
+
+    - name: Instalar Dependencias
+      run: npm install
+
+    - name: Rodar Testes Unitarios do Angular
+      run: npm run test -- --watch=false --browsers=ChromeHeadless
+
+    - name: Fazer Build para Producao
+      run: npm run build -- --configuration=production
+  
+##Trigger para o github
