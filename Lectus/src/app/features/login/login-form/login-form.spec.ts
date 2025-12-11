@@ -6,6 +6,7 @@ import { CommonModule } from '@angular/common';
 import { LoginService } from '../service/login.service';
 import { of } from 'rxjs';
 import { Header } from '../../../core/header/header';
+import { provideRouter } from '@angular/router';
 
 // Criar um mock do serviço para evitar chamadas reais
 class MockLoginService {
@@ -26,6 +27,7 @@ describe('LoginForm', () => {
       ],
       providers: [
         { provide: LoginService, useClass: MockLoginService }, // evita erro de injeção
+        provideRouter([])
       ]
     }).compileComponents();
 

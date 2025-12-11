@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { DeletarLivro } from './deletar-livro';
+import { provideRouter } from '@angular/router';
 
 describe('DeletarLivro', () => {
   let component: DeletarLivro;
@@ -8,7 +9,8 @@ describe('DeletarLivro', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [DeletarLivro]
+      imports: [DeletarLivro],
+      providers: [provideRouter([])]
     })
     .compileComponents();
 
