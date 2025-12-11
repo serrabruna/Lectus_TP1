@@ -29,8 +29,10 @@ jobs:
 
     - name: Rodar Testes Unitarios do Angular
       run: npm run test -- --watch=false --browsers=ChromeHeadless
+      working-directory: ./Lectus
 
     - name: Fazer Build para Producao
       run: npm run build -- --configuration=production
+      working-directory: ./Lectus
   
 ##Trigger para o github
