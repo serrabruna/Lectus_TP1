@@ -3,10 +3,11 @@ import { Component, inject } from '@angular/core';
 import { CarrinhoService } from '../services/carrinho/carrinho.service';
 import { Router, RouterModule } from '@angular/router';
 import { Livro } from '../../../model/livro';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-carrinho',
-  imports: [CommonModule, RouterModule],
+  imports: [CommonModule, RouterModule, FormsModule],
   templateUrl: './carrinho.html',
   styleUrl: './carrinho.css',
 })
@@ -26,13 +27,11 @@ export class Carrinho {
     this.carrinhoService.remover(id);
   }
 
-  atualizar(id: number, event: any) {
-    const input = event.target as HTMLInputElement;
-    const qtd = Number(input.value);
-    if (!isNaN(qtd)) {
-      this.carrinhoService.atualizarQtd(id, qtd);
+  atualizar(id: number, novaQtd: number) {
+    if (!isNaN(novaQtd) && novaQtd > 0) {
+        this.carrinhoService.atualizarQtd(id, novaQtd);
     }
-  }
+}
 
   limpar() {
     this.carrinhoService.limpar();

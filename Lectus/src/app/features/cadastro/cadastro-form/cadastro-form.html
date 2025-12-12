@@ -30,10 +30,10 @@
             <div class="campo">
                 <label for="senha">Senha: </label>
                 <input type="password" id="senha" name="senha" [(ngModel)]="novoUsuario.senha_hash" required
-                    minlength="6" placeholder="Senha">
+                    minlength="8" placeholder="Senha">
                 <small class="erro"
                     [hidden]="!(formulario.controls['senha']?.dirty && formulario.controls['senha'].invalid)">
-                    A senha é obrigatória e deve ter ao menos 6 caracteres.
+                    A senha é obrigatória e deve ter ao menos 8 caracteres, maiusculas, minúsculas e números.
                 </small>
             </div>
 
