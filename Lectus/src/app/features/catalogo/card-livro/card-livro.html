@@ -27,12 +27,12 @@
 
                 <h3 class="titulo">{{ livro()!.titulo }}</h3>
 
-                @if (livro()!.empromocao) {
+                @if (livro()!.promocao) {
                 <span class="selo promo">Promoção</span>
                 }
 
                 <div class="preco-container">
-                    @if (livro()!.empromocao) {
+                    @if (livro()!.promocao) {
                     <span class="preco desconto">
                         {{ livro()!.preco | desconto:10 | currency:'BRL':'symbol':'1.2-2' }}
                     </span>

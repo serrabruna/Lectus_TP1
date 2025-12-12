@@ -1,5 +1,5 @@
 export interface Livro {
-    id: number;
+    id?: number; // Agora é opcional para não enviar '0' na criação
     categoria_id: number;
     titulo: string;
     autor: string;
@@ -9,13 +9,13 @@ export interface Livro {
     sinopse: string;
     editora: string;
     imageURL: string;
-    data_publicacao: Date;
-    empromocao?: boolean;
+    data_publicacao: Date | string; 
+    promocao?: boolean | number;   
 }
 
 export class LivroMapper {
     static fromJson(json: any): Livro {
-        return{
+        return {
             id: json.id,
             categoria_id: json.categoria_id,
             titulo: json.titulo,
@@ -27,7 +27,7 @@ export class LivroMapper {
             editora: json.editora,
             imageURL: json.imageURL,
             data_publicacao: json.data_publicacao,
-            empromocao: json.empromocao
+            promocao: json.promocao 
         };
     }
 
@@ -44,7 +44,7 @@ export class LivroMapper {
             editora: livro.editora,
             imageURL: livro.imageURL,
             data_publicacao: livro.data_publicacao,
-            empromocao: livro.empromocao
+            promocao: livro.promocao 
         };
     }
 }

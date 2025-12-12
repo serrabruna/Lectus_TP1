@@ -85,7 +85,7 @@ export class ListaCatalogo {
 
   prodExibidos = computed(() => {
     return this.apenaspromo()
-      ? this.books().filter(p => p.empromocao)
+      ? this.books().filter(p => p.promocao)
       : this.books();
   });
 

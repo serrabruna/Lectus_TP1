@@ -22,10 +22,15 @@ export class AdicionarLivro {
   enviando = signal(false);
   mensagem = signal('');
 
-  categorias: Signal<Categoria[]> = toSignal(this.categoriaService.listar(), { initialValue: [] });
+  categorias = signal<Categoria[]>([
+    { id: 1, nome: 'Ficção' },
+    { id: 2, nome: 'Romance' },
+    { id: 3, nome: 'Técnico' },
+    { id: 4, nome: 'Fantasia' },
+    { id: 5, nome: 'Terror' }
+  ]);
 
   novoLivro: Livro = {
-    id: 0, 
     categoria_id: 1,
     titulo: '',
     autor: '',
@@ -36,7 +41,7 @@ export class AdicionarLivro {
     editora: '',
     imageURL: '',
     data_publicacao: new Date(),
-    empromocao: false, 
+    promocao: false, 
   };
 
   onSubmit(form: NgForm){

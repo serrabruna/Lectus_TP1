@@ -104,10 +104,10 @@
                                 [(ngModel)]="livro()!.categoria_id" required>
                                 
                                 @for (categoria of categorias(); track categoria.id) {
-                                    <option [value]="categoria.id">{{ categoria.nome }}</option>
+                                    <option [ngValue]="categoria.id">{{ categoria.nome }}</option>
                                 }
                                 @empty {
-                                    <option value="" disabled>Carregando categorias...</option>
+                                    <option [ngValue]="null" disabled>Carregando categorias...</option>
                                 }
                             </select>
                             <small class="erro" [hidden]="!(formulario.controls['categoria_id']?.dirty && formulario.controls['categoria_id'].invalid)">
@@ -130,8 +130,8 @@
                     <div class="form-grid">
                         <div class="campo campo-full checkbox-container">
                             <label for="empromocao">Em Promoção?</label>
-                            <input type="checkbox" id="empromocao" name="empromocao" 
-                                    [(ngModel)]="livro()!.empromocao">
+                            <input type="checkbox" id="promocao" name="promocao" 
+                                    [(ngModel)]="livro()!.promocao">
                         </div>
                     </div>
                     

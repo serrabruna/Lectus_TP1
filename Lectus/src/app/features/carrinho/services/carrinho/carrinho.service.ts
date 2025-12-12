@@ -43,7 +43,7 @@ export class CarrinhoService {
     }
 
     adicionar(livro: Livro, quantidade: number = 1) {
-        if (!livro) return;
+        if (!livro || !livro.id) return;
         const livros = this._itensPedido();
         const idx = livros.findIndex(it => it.id === livro.id);
         if (idx > -1) {

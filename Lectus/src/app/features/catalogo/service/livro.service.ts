@@ -1,25 +1,27 @@
 import { inject, Injectable } from '@angular/core';
-import { LoggerService } from '../../../core/services/logger/logger.service';
 import { Livro } from '../../../model/livro';
-import { delay, Observable, of, throwError } from 'rxjs';
+import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
+import { map } from 'rxjs/operators'; 
 
 @Injectable({
   providedIn: 'root',
 })
 export class LivroService {
   private http = inject(HttpClient);
-  private readonly apiUrl = 'http://apilojalivrospedro-production.up.railway.app';
-
-  private logger = inject(LoggerService);
+  private readonly apiUrl = '/api';
 
   listar(): Observable<Livro[]> {
-    return this.http.get<Livro[]>(`${this.apiUrl}/livros`);
+    return this.http.get<any>(`${this.apiUrl}/livros`).pipe(
+      map(resposta => resposta.object) 
+    );
   } 
 
   buscarPorId(id: number): Observable<Livro> {
-    return this.http.get<Livro>(`${this.apiUrl}/livros/${id}`);
-  }
+  return this.http.get<any>(`${this.apiUrl}/livros/${id}`).pipe(
+    map(resposta => resposta.object) 
+  );
+}
 
   adicionarLivro(novoLivro: Livro): Observable<Livro> {
     return this.http.post<Livro>(`${this.apiUrl}/livros`, novoLivro);
@@ -32,9 +34,4 @@ export class LivroService {
   deletar(id: number): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}/livros/${id}`);
   }
-  
-  simularAtualizacao(livro: Livro) { return this.atualizarLivro(livro); }
-  simularDeletar(id: number) { return this.deletar(id); }
-
-
 }

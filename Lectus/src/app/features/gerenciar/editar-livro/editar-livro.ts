@@ -1,13 +1,13 @@
 import { CommonModule, DatePipe } from '@angular/common';
 import { Component, inject, Signal, signal } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
-import { ActivatedRoute, Router, RouterLink } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { LivroService } from '../../catalogo/service/livro.service';
 import { CategoriaService } from '../../categorias/service/categoria.service';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { Livro } from '../../../model/livro';
 import { Categoria } from '../../../model/categoria';
-import { of, switchMap, throwError, EMPTY } from 'rxjs';
+import { EMPTY, switchMap } from 'rxjs'; 
 
 @Component({
   selector: 'app-editar-livro',
@@ -22,7 +22,14 @@ export class EditarLivro {
   private categoriaService = inject(CategoriaService);
 
   livro = signal<Livro | null>(null);
-  categorias: Signal<Categoria[]> = toSignal(this.categoriaService.listar(), { initialValue: [] });
+  categorias = signal<Categoria[]>([
+    { id: 1, nome: 'Ficção' },
+    { id: 2, nome: 'Romance' },
+    { id: 3, nome: 'Técnico' },
+    { id: 4, nome: 'Fantasia' },
+    { id: 5, nome: 'Terror' }
+  ]);
+
 
   enviando = signal(false);
   mensagem = signal('');
@@ -30,35 +37,39 @@ export class EditarLivro {
 
   ngOnInit(): void {
     this.route.paramMap.pipe(
-        switchMap(params => {
-            const idParam = params.get('id');
-            const id = Number(idParam);
+      switchMap(params => {
+        const idParam = params.get('id');
+        const id = Number(idParam);
 
-            this.loading.set(true);
-            this.mensagem.set('');
-            this.livro.set(null); 
+        this.loading.set(true);
+        this.mensagem.set('');
+        this.livro.set(null);
 
-            if (!idParam || isNaN(id) || id <= 0) {
-                this.loading.set(false);
-                this.mensagem.set('Erro: ID do livro inválido na URL. Por favor, verifique a rota.');
-                return EMPTY; 
-            }
-            
-            return this.livroService.buscarPorId(id);
-        })
+        if (!idParam || isNaN(id) || id <= 0) {
+          this.loading.set(false);
+          this.mensagem.set('Erro: ID do livro inválido na URL.');
+          return EMPTY;
+        }
+
+        return this.livroService.buscarPorId(id);
+      })
     ).subscribe({
-        next: (livroCarregado) => {
-            if (livroCarregado === null) {
-                  return;
-            }
-            this.livro.set(livroCarregado);
-            this.loading.set(false);
-        },
-        error: (err) => {
-            console.error('Erro ao carregar livro para edição:', err);
-            this.mensagem.set('Livro não encontrado ou erro ao carregar os dados.');
-            this.loading.set(false);
-        },
+      next: (livroCarregado) => {
+        if (!livroCarregado) return;
+
+        const livroAjustado = {
+            ...livroCarregado,
+            promocao: !!livroCarregado.promocao 
+        };
+
+        this.livro.set(livroAjustado);
+        this.loading.set(false);
+      },
+      error: (err) => {
+        console.error('Erro ao carregar:', err);
+        this.mensagem.set('Erro ao carregar os dados do livro.');
+        this.loading.set(false);
+      },
     });
   }
 
@@ -71,28 +82,66 @@ export class EditarLivro {
     }
   }
 
-  onSave(form: NgForm): void {
-    if (form.invalid || !this.livro()) {
-      this.mensagem.set('Preencha todos os campos obrigatórios.');
+  // Adicione este método logo abaixo do onDataPublicacaoChange
+
+  onSave(form: NgForm) {
+    if (form.invalid) {
+      this.mensagem.set('Por favor, preencha todos os campos obrigatórios.');
+      return;
+    }
+
+    const dadosAtuais = this.livro();
+    
+    if (!dadosAtuais) {
+      this.mensagem.set('Erro: Nenhum dado de livro carregado.');
       return;
     }
 
     this.enviando.set(true);
-    this.mensagem.set('Salvando alterações...');
+    this.mensagem.set('');
 
-    const livroAtualizado = this.livro()!;
-    
-    this.livroService.atualizarLivro(livroAtualizado).subscribe({
+    // 1. Tratamento da Data
+    let dataFormatada = '';
+    if (dadosAtuais.data_publicacao) {
+      if (dadosAtuais.data_publicacao instanceof Date) {
+         dataFormatada = dadosAtuais.data_publicacao.toISOString().split('T')[0];
+      } else {
+         const stringData = String(dadosAtuais.data_publicacao);
+         dataFormatada = stringData.split('T')[0];
+      }
+    }
+
+    // 2. Montar o objeto CORRIGIDO
+    // Removemos o ID do corpo para evitar confusão no backend
+    const { id, ...restoDoLivro } = dadosAtuais;
+
+    const livroParaEnviar = {
+      ...restoDoLivro,
+      data_publicacao: dataFormatada,
+      categoria_id: Number(dadosAtuais.categoria_id),
+      promocao: !!dadosAtuais.promocao,
+      
+      // !!! AQUI ESTÁ A CORREÇÃO PRINCIPAL !!!
+      // Converte "25.00" (texto) para 25.00 (número)
+      preco: Number(dadosAtuais.preco) 
+    };
+
+    console.log('JSON Enviado:', livroParaEnviar);
+
+    // Envia o ID na URL (primeiro parâmetro) e o objeto sem ID no corpo
+    // Se o seu serviço exigir o ID dentro do objeto, mude para: { id: id, ...livroParaEnviar }
+    this.livroService.atualizarLivro({ id: id, ...livroParaEnviar }).subscribe({
       next: () => {
-        this.mensagem.set(`Livro "${livroAtualizado.titulo}" atualizado com sucesso!`);
         this.enviando.set(false);
+        alert('Livro atualizado com sucesso!');
+        // this.router.navigate(['/catalogo']); // Descomente se quiser sair da tela
       },
       error: (err) => {
-        console.error('Erro ao salvar livro:', err);
-        const errorMsg = err.error?.message || err.message || 'Erro desconhecido';
-        this.mensagem.set(`Erro ao salvar: ${errorMsg}.`);
         this.enviando.set(false);
-      },
+        console.error('Erro detalhado:', err);
+        this.mensagem.set('Erro ao salvar. Verifique o console.');
+      }
     });
   }
+  
 }

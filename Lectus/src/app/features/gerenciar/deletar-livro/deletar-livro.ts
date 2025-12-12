@@ -58,7 +58,11 @@ export class DeletarLivro {
 
   onDelete(): void{
     const livro = this.livro();
-    if(!livro) return;
+
+    if (!livro || !livro.id) {
+        this.mensagem.set('Erro: Não é possível deletar um livro sem ID.');
+        return;
+    }
 
     if (!confirm(`Tem certeza que deseja DELETAR o livro: "${livro.titulo}"?`)) {
         return;
