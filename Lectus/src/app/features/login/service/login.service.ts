@@ -8,7 +8,7 @@ import { loginUsuario } from '../../../model/loginUsuario';
 })
 export class LoginService {
   private http = inject(HttpClient);
-  private readonly apiUrl = 'http://apilojalivrospedro-production.up.railway.app/app-docs';
+  private readonly apiUrl = '/api';
 
   logarUsuario(login: loginUsuario): Observable<any> {
     return this.http.post<any>(`${this.apiUrl}/usuarios`, login);

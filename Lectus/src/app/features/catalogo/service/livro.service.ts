@@ -9,13 +9,13 @@ import { HttpClient } from '@angular/common/http';
 })
 export class LivroService {
   private http = inject(HttpClient);
-  private readonly apiUrl = 'http://apilojalivrospedro-production.up.railway.app';
+  private readonly apiUrl = '/api';
 
   private logger = inject(LoggerService);
 
   listar(): Observable<Livro[]> {
     return this.http.get<Livro[]>(`${this.apiUrl}/livros`);
-  } 
+  }
 
   buscarPorId(id: number): Observable<Livro> {
     return this.http.get<Livro>(`${this.apiUrl}/livros/${id}`);
@@ -32,7 +32,7 @@ export class LivroService {
   deletar(id: number): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}/livros/${id}`);
   }
-  
+
   simularAtualizacao(livro: Livro) { return this.atualizarLivro(livro); }
   simularDeletar(id: number) { return this.deletar(id); }
 

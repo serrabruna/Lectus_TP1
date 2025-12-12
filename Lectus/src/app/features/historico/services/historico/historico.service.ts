@@ -6,7 +6,7 @@ import { Pedido } from '../../../../model/pedido';
 @Injectable({ providedIn: 'root' })
 export class HistoricoService {
   private http = inject(HttpClient);
-  private readonly apiUrl = 'http://apilojalivrospedro-production.up.railway.app/'; 
+  private readonly apiUrl = '/api';
 
   private _pedidos = signal<Pedido[]>([]);
   pedidos = this._pedidos.asReadonly(); 
