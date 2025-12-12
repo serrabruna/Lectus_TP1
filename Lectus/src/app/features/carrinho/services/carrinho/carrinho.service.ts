@@ -11,6 +11,7 @@ const chave = 'lojatp1_carrinho';
 
 export class CarrinhoService {
     private logger = inject(LoggerService);
+    private readonly apiUrl = '/api';
 
     //Lista interna
     private _itensPedido = signal<ItemPedido[]>(this._carregarLivros());

@@ -4,6 +4,8 @@ import { Injectable } from '@angular/core';
   providedIn: 'root',
 })
 export class LoggerService {
+    private readonly apiUrl = '/api';
+
   info (msg: string, extra?: unknown){
     //enviar um endpoint posteriormente
     console.info(msg, extra ?? '');
