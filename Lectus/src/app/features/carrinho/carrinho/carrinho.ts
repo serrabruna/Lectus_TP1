@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { CarrinhoService } from '../services/carrinho/carrinho.service';
 import { Router, RouterModule } from '@angular/router';
-import { HistoricoService } from '../../historico/services/historico/historico.service';
+import { Livro } from '../../../model/livro';
 
 @Component({
   selector: 'app-carrinho',
@@ -11,49 +11,45 @@ import { HistoricoService } from '../../historico/services/historico/historico.s
   styleUrl: './carrinho.css',
 })
 export class Carrinho {
-  private carrinho = inject(CarrinhoService);
+  private carrinhoService = inject(CarrinhoService);
   private router = inject(Router);
-  private historicoService = inject(HistoricoService);
 
-  livros = this.carrinho.itens;
-  total = this.carrinho.valorTotal;
-  qtdProd = this.carrinho.qtdItens;
+  livros = this.carrinhoService.itens;
+  total = this.carrinhoService.valorTotal;
+  qtdProd = this.carrinhoService.qtdItens;
+
+  adicionar(livro: Livro) {
+    this.carrinhoService.adicionar(livro, 1);
+  }
 
   remover(id: number) {
-    this.carrinho.remover(id);
+    this.carrinhoService.remover(id);
   }
+
   atualizar(id: number, event: any) {
     const input = event.target as HTMLInputElement;
     const qtd = Number(input.value);
     if (!isNaN(qtd)) {
-      this.carrinho.atualizarQtd(id, qtd);
+      this.carrinhoService.atualizarQtd(id, qtd);
     }
   }
+
   limpar() {
-    this.carrinho.limpar();
+    this.carrinhoService.limpar();
   }
+
   checkout() {
-    // const pedido = {
-    //   id: Date.now(),
-    //   data: new Date(),
-    //   itens: this.livros(),
-    //   total: this.total()
-    // };
-
-    // this.historicoService.registrarPedido(pedido);
-
-    // alert(`Simulando checkout. Total: R$ ${this.total().toFixed(2)}`);
+    if (this.livros().length === 0) {
+        alert("Seu carrinho está vazio");
+        return;
+    }
+    
     this.router.navigate(['/checkout']);
-
   }
+
   continuarComprando() {
     this.router.navigate(['/catalogo']);
   }
-  irCarrinho() {
-    this.router.navigate(['/carrinho']);
-  }
-  irHistorico() {
-    this.router.navigate(['/historico']);
-  }
-
+  
+  irCarrinho() { this.router.navigate(['/carrinho']); }
 }
