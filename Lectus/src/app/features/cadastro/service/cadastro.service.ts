@@ -15,7 +15,7 @@ export class CadastroService {
   private readonly apiUrl = environment.apiUrl;
 
   cadastrarUsuario(usuario: Usuario): Observable<any> {
-    return this.http.post<any>(`${this.apiUrl}/usuarios`, usuario).pipe(
+    return this.http.post<any>(`${this.apiUrl}/api/usuarios`, usuario).pipe(
       map((resposta) => {
         this.logger.info('[CadastroService] Usuário cadastrado', resposta);
         return resposta;
