@@ -71,7 +71,7 @@
                     <div class="campo campo-full">
                         <label for="imageURL">URL da Imagem: </label>
                         <input type="text" id="imageURL" name="imageURL"
-                            [(ngModel)]="novoLivro.image_url" required placeholder="http://link-para-imagem.jpg">
+                            [(ngModel)]="novoLivro.imageURL" required placeholder="http://link-para-imagem.jpg">
                         <small class="erro" [hidden]="!(formulario.controls['imageURL']?.dirty && formulario.controls['imageURL'].invalid)">
                             A **URL da imagem** é obrigatória.
                         </small>
