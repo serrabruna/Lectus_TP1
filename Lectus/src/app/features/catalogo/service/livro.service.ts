@@ -2,8 +2,8 @@ import { inject, Injectable } from '@angular/core';
 import { Livro } from '../../../model/livro';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
-import { map } from 'rxjs/operators'; 
-import { environment } from '../../../../environments/environment.prod';
+import { map } from 'rxjs/operators';
+import { environment } from '../../../assets/environments/environment.prod';
 
 @Injectable({
   providedIn: 'root',
@@ -13,27 +13,25 @@ export class LivroService {
   private readonly apiUrl = environment.apiUrl;
 
   listar(): Observable<Livro[]> {
-    return this.http.get<any>(`${this.apiUrl}/livros`).pipe(
-      map(resposta => resposta.object) 
-    );
-  } 
+    return this.http.get<any>(`${this.apiUrl}/livros`).pipe(map((resposta) => resposta.object));
+  }
 
   buscarPorId(id: number): Observable<Livro> {
-  return this.http.get<any>(`${this.apiUrl}/livros/${id}`).pipe(
-    map(resposta => resposta.object) 
-  );
-}
+    return this.http
+      .get<any>(`${this.apiUrl}/livros/${id}`)
+      .pipe(map((resposta) => resposta.object));
+  }
 
   adicionarLivro(novoLivro: Livro): Observable<Livro> {
-    return this.http.post<any>(`${this.apiUrl}/livros`, novoLivro).pipe(
-      map(resposta => resposta.object)
-    );
+    return this.http
+      .post<any>(`${this.apiUrl}/livros`, novoLivro)
+      .pipe(map((resposta) => resposta.object));
   }
 
   atualizarLivro(livro: Livro): Observable<Livro> {
     const { id, ...dadosParaEnviar } = livro;
     return this.http.put<Livro>(`${this.apiUrl}/livros/${id}`, dadosParaEnviar);
-}
+  }
 
   deletar(id: number): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}/livros/${id}`);

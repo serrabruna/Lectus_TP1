@@ -3,7 +3,7 @@ import { LoggerService } from '../../../core/services/logger/logger.service';
 import { delay, Observable, of } from 'rxjs';
 import { Categoria } from '../../../model/categoria';
 import { HttpClient } from '@angular/common/http';
-import { environment } from '../../../../environments/environment.prod';
+import { environment } from '../../../assets/environments/environment.prod';
 
 @Injectable({
   providedIn: 'root',
