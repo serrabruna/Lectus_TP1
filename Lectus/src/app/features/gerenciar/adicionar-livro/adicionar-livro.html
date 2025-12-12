@@ -90,10 +90,11 @@
                         </small>
                     </div>
                     
+                   <!----- 
                     <div class="campo">
                         <label for="categoria_id">Categoria: </label>
                         <select id="categoria_id" name="categoria_id" 
-                            [(ngModel)]="novoLivro.categoria_id" required>
+                            [(ngModel)]="novoLivro.categoria_id">
                             
                             @for (categoria of categorias(); track categoria.id) {
                                 <option [value]="categoria.id">{{ categoria.nome }}</option>
@@ -106,6 +107,7 @@
                             A **categoria** é obrigatória.
                         </small>
                     </div>
+                   --> 
                 </div>
 
                 <div class="form-grid">

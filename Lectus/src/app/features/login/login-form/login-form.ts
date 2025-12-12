@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { loginUsuario } from '../../../model/loginUsuario';
 import { LoginService } from '../service/login.service';
 import { CommonModule } from '@angular/common';
+import { Usuario } from '../../../model/usuario';
 
 
 @Component({
@@ -27,33 +28,44 @@ export class LoginForm {
   enviando = signal(false);
   mensagem = signal('');
 
-  onSubmit(form: NgForm){
-    if(form.invalid){
-      this.mensagem.set("Preencha todos os campos obrigatórios.");
-      return; 
+  onSubmit(form: NgForm) {
+    if (form.invalid) {
+      this.mensagem.set("Preencha todos os campos.");
+      return;
     }
 
     this.enviando.set(true);
-    this.mensagem.set('A processar login...');
+    this.mensagem.set('Autenticando...');
 
     this.loginService.logarUsuario(this.userLogin).subscribe({
-      next: (res) => {
-        console.log('Login efetuado:', res);
-        
-
-        this.mensagem.set('Login realizado com sucesso! Redirecionando...');
-        form.resetForm();
-        setTimeout(() => this.router.navigate(['/']), 1500);
+      next: (response: any) => {
+        if (response && response.token) {
+          console.log('Login successful!');
+      
+          localStorage.setItem('auth_token', response.token);
+          this.mensagem.set('Login realizado! Redirecionando...');
+          
+          setTimeout(() => {
+            this.router.navigate(['/']); // Go to home
+          }, 1000);
+        } else {
+           this.mensagem.set('Erro inesperado no servidor.');
+        }
       },
       error: (err) => {
-        console.error('Erro no login:', err);
-        const msgErro = err.error?.message || err.statusText || 'Erro desconhecido';
-        this.mensagem.set(`Erro ao logar: ${msgErro}. Tente novamente.`);
+        console.error('Login error:', err);
         this.enviando.set(false);
+
+        if (err.status === 401 || err.status === 404) {
+          this.mensagem.set('Email ou senha incorretos.');
+        } else {
+          this.mensagem.set('Erro de conexão. Tente novamente mais tarde.');
+        }
       },
       complete: () => {
         this.enviando.set(false);
       }
-    })
+    });
   }
 }
+

@@ -9,7 +9,7 @@ import { HttpClient } from '@angular/common/http';
 })
 export class CadastroService {
   private http = inject(HttpClient);
-  private readonly apiUrl = 'https://apilectus-production.up.railway.app';
+  private readonly apiUrl = 'http://apilojalivrospedro-production.up.railway.app';
 
   cadastrarUsuario(usuario: Usuario): Observable<any> {
     return this.http.post<any>(`${this.apiUrl}/usuarios`, usuario);

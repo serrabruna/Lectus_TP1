@@ -9,7 +9,7 @@ import { HttpClient } from '@angular/common/http';
 })
 export class CategoriaService {
   private http = inject(HttpClient);
-  private readonly apiUrl = 'https://apilectus-production.up.railway.app';
+  private readonly apiUrl = 'http://apilojalivrospedro-production.up.railway.app/';
 
   listar(): Observable<Categoria[]> {
     return this.http.get<Categoria[]>(`${this.apiUrl}/categorias`);

@@ -6,7 +6,7 @@
       <div class="form-grid">
           <div class="campo">
               <label for="email">E-mail: </label>
-              <input type="email" id="email" name="email" [(ngModel)]="Usuario.email"
+              <input type="email" id="email" name="email" [(ngModel)]="userLogin.email"
                   required minlength="10" placeholder="E-mail">
 
               <small class="erro"
@@ -19,7 +19,7 @@
       <div class="form-grid">
           <div class="campo">
               <label for="senha">Senha: </label>
-              <input type="password" id="senha" name="senha" [(ngModel)]="Usuario.senha"
+              <input type="password" id="senha" name="senha" [(ngModel)]="userLogin.senha"
                   required minlength="6" placeholder="Senha">
 
               <small class="erro"
