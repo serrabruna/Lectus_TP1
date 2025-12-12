@@ -8,6 +8,7 @@ import { delay, Observable, of, throwError } from 'rxjs';
 })
 export class LivroService {
   private logger = inject(LoggerService);
+  private readonly apiUrl = '/api';
 
   private readonly mockLivros: Livro[] = [
     {
@@ -28,7 +29,7 @@ export class LivroService {
   listar(): Observable<Livro[]> {
     this.logger.info('[LivroService] Simulação de listagem de livros.');
     return of(this.mockLivros).pipe(delay(500));
-  } 
+  }
   buscarPorId(id: number): Observable<Livro> {
     this.logger.info(`[LivroService] Buscando livro ${id}`);
 
@@ -41,13 +42,13 @@ export class LivroService {
     return of(livro).pipe(delay(300));
   }
 
-  adicionarLivro(novoLivro: Livro): Observable<Livro>{
+  adicionarLivro(novoLivro: Livro): Observable<Livro> {
     this.logger.info('[LivroService] Simulação de adição de um livro.');
     const novoId = this.mockLivros.length + 1;
     const livroAdicionado = { ...novoLivro, id: novoId };
 
     this.mockLivros.push(livroAdicionado);
 
-    return of (livroAdicionado).pipe(delay(500));
+    return of(livroAdicionado).pipe(delay(500));
   }
 }

@@ -7,7 +7,8 @@ import { Categoria } from '../../../model/categoria';
   providedIn: 'root',
 })
 export class CategoriaService {
-  private logger= inject(LoggerService);
+  private logger = inject(LoggerService);
+  private readonly apiUrl = '/api';
 
   private readonly mockCategorias = [
     {
@@ -24,8 +25,8 @@ export class CategoriaService {
     }
   ];
 
-  listar(): Observable<Categoria[]>{
-      this.logger.info('[LivroService] Simulação de listagem de livros.');
-      return of(this.mockCategorias).pipe(delay(500));
-    }
+  listar(): Observable<Categoria[]> {
+    this.logger.info('[LivroService] Simulação de listagem de livros.');
+    return of(this.mockCategorias).pipe(delay(500));
+  }
 }

@@ -6,6 +6,7 @@ const CHAVE = 'lojatp1_historico';
 
 @Injectable({ providedIn: 'root' })
 export class HistoricoService {
+  private readonly apiUrl = '/api';
 
   private _ultimoPedido = signal<Pedido | null>(null);
   ultimoPedido = this._ultimoPedido;
@@ -19,13 +20,13 @@ export class HistoricoService {
     return data ? JSON.parse(data) : [];
   }
 
- registrarPedido(pedido: Pedido) {
-  const lista = [...this._pedidos(), pedido];
-  this._pedidos.set(lista);
-  this._ultimoPedido.set(pedido);
+  registrarPedido(pedido: Pedido) {
+    const lista = [...this._pedidos(), pedido];
+    this._pedidos.set(lista);
+    this._ultimoPedido.set(pedido);
 
-  localStorage.setItem(CHAVE, JSON.stringify(lista));
-}
+    localStorage.setItem(CHAVE, JSON.stringify(lista));
+  }
 
 
 }
