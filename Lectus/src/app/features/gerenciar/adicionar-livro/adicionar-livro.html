@@ -70,7 +70,7 @@
                 <div class="form-grid">
                     <div class="campo campo-full">
                         <label for="imageURL">URL da Imagem: </label>
-                        <input type="text" id="image_url" name="image_url"
+                        <input type="text" id="imageURL" name="imageURL"
                             [(ngModel)]="novoLivro.image_url" required placeholder="http://link-para-imagem.jpg">
                         <small class="erro" [hidden]="!(formulario.controls['imageURL']?.dirty && formulario.controls['imageURL'].invalid)">
                             A **URL da imagem** é obrigatória.
@@ -121,8 +121,8 @@
 
                 <div class="form-grid">
                     <div class="campo campo-full checkbox-container">
-                        <label for="empromocao">Em Promoção?</label>
-                        <input type="checkbox" id="empromocao" name="empromocao" 
+                        <label for="promocao">Em Promoção?</label>
+                        <input type="checkbox" id="promocao" name="promocao" 
                                 [(ngModel)]="novoLivro.promocao">
                     </div>
                 </div>
@@ -144,8 +144,8 @@
         <h3>Pré-visualização da Capa</h3>
         <p>A imagem será carregada da URL fornecida.</p>
         
-        @if (novoLivro.image_url) {
-            <img [src]="novoLivro.image_url" 
+        @if (novoLivro.imageURL) {
+            <img [src]="novoLivro.imageURL" 
                  alt="Pré-visualização da Capa" 
                  class="preview-img">
         } @else {
