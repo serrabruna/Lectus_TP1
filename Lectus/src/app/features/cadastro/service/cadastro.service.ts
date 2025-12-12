@@ -4,6 +4,7 @@ import { map, catchError } from 'rxjs/operators';
 import { Usuario } from '../../../model/usuario';
 import { LoggerService } from '../../../core/services/logger/logger.service';
 import { HttpClient } from '@angular/common/http';
+import { environment } from '../../../../environments/environment.prod';
 
 @Injectable({
   providedIn: 'root',
@@ -11,7 +12,7 @@ import { HttpClient } from '@angular/common/http';
 export class CadastroService {
   private http = inject(HttpClient);
   private logger = inject(LoggerService);
-  private readonly apiUrl = '/api';
+  private readonly apiUrl = environment.apiUrl;
 
   cadastrarUsuario(usuario: Usuario): Observable<any> {
     return this.http.post<any>(`${this.apiUrl}/usuarios`, usuario).pipe(

@@ -3,13 +3,14 @@ import { Livro } from '../../../model/livro';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators'; 
+import { environment } from '../../../../environments/environment.prod';
 
 @Injectable({
   providedIn: 'root',
 })
 export class LivroService {
   private http = inject(HttpClient);
-  private readonly apiUrl = '/api';
+  private readonly apiUrl = environment.apiUrl;
 
   listar(): Observable<Livro[]> {
     return this.http.get<any>(`${this.apiUrl}/livros`).pipe(
