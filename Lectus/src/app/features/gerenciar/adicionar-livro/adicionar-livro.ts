@@ -39,7 +39,7 @@ export class AdicionarLivro {
     estoque: 1, 
     sinopse: '',
     editora: '',
-    image_url: '',
+    imageURL: '',
     data_publicacao: new Date(),
     promocao: false, 
   };
@@ -96,7 +96,7 @@ export class AdicionarLivro {
       estoque: 1,
       sinopse: '',
       editora: '',
-      image_url: '',
+      imageURL: '',
       data_publicacao: new Date(),
       promocao: false
     };

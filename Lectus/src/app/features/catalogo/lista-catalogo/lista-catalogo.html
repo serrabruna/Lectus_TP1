@@ -40,7 +40,7 @@
         <article class="livro-card" [class.promo]="livro.promocao" [class.esgotado]="livro.estoque === 0"
             [routerLink]="['/catalogo', livro.id]">
 
-            <img [src]="livro.image_url" [alt]="livro.titulo" class="livro-thumb">
+            <img [src]="livro.imageURL" [alt]="livro.titulo" class="livro-thumb">
 
             <div class="card-content">
                 <h3 class="livro-titulo">{{ livro.titulo }}</h3>

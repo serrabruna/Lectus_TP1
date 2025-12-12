@@ -16,17 +16,17 @@
     <div class="lista">
         @for(item of livros(); track item.id){
         <div class="item">
-            <img class="thump" [src]=" item.livro.image_url" [alt]="item.livro.titulo">
+            <img class="thump" [src]=" item.livro.imageURL" [alt]="item.livro.titulo">
             <div class="info">
                 <h3>{{item.livro.titulo}}</h3>
                 <p class="preco">R$ {{(item.livro.preco).toFixed(2)}}</p>
                 <div class="qtd">
                     <label>Quantidade</label>
                     <input 
-                        type="number" 
-                        min="1" 
-                        [ngModel]="item.quantidade" 
-                        (ngModelChange)="atualizar(item.id, $event)">
+                    type="number" 
+                    min="1" 
+                    [ngModel]="item.quantidade" 
+                    (ngModelChange)="atualizar(item.id, $event)">
                 </div>
                 <div class="acoes">
                     <button class="btn ghost" (click)="remover(item.id)">Remover</button>
