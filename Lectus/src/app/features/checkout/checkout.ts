@@ -4,8 +4,6 @@ import { FormsModule, NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Endereco } from '../../model/endereco';
 import { CarrinhoService } from '../carrinho/services/carrinho/carrinho.service';
-import { HistoricoService } from '../historico/services/historico/historico.service';
-import { Pagamento } from '../../model/pagamento';
 
 @Component({
   selector: 'app-checkout',
@@ -17,58 +15,45 @@ import { Pagamento } from '../../model/pagamento';
 export class Checkout {
 
   private carrinho = inject(CarrinhoService);
-  private historico = inject(HistoricoService);
   private router = inject(Router);
 
   mensagem = signal('');
   nomeUsuario = '';
+  metodoSelecionado = '';
+  
+  metodos = ['Crédito', 'Débito', 'Pix'];
 
   novoEndereco: Endereco = {
-    cep: '',
-    rua: '',
-    numero: 0,
-    bairro: '',
-    cidade: '',
-    estado: '',
-    complemento: ''
+    cep: '', rua: '', numero: 0, bairro: '', cidade: '', estado: '', complemento: ''
   };
-  metodos = ['Credito', 'Débito', 'Pix'];
-  metodoSelecionado = '';
-
 
   onSubmit(form: NgForm) {
-    if (form.invalid) {
-      this.mensagem.set('Preencha todos os campos obrigatórios.');
+    // 1. Validações
+    if (this.carrinho.qtdItens() === 0) {
+      this.mensagem.set('Seu carrinho está vazio.');
       return;
     }
 
-    const pedido: any = { 
+    if (form.invalid || !this.metodoSelecionado) {
+      this.mensagem.set('Preencha todos os campos e selecione o pagamento.');
+      return;
+    }
+
+    const pedido = {
+      id: Date.now(),
+      data: new Date(),
       itens: this.carrinho.itens(),
       total: this.carrinho.valorTotal(),
-      endereco: this.novoEndereco,
+      endereco: { ...this.novoEndereco },
       metodoPagamento: this.metodoSelecionado,
-      data: new Date()
+      status: 'REALIZADO'
     };
 
-    this.mensagem.set('Processando pedido...');
+    console.log('Pedido processado offline:', pedido);
 
-    this.historico.registrarPedido(pedido).subscribe({
-      next: (pedidoCriado: any) => { 
-        console.log('Pedido criado:', pedidoCriado);
-        
-        this.carrinho.limpar();
-        
-        this.router.navigate(['/resumo-pedido'], {
-          state: {
-            nomeUsuario: this.nomeUsuario,
-            pedido: pedidoCriado
-          }
-        });
-      },
-      error: (err: any) => { 
-        console.error('Erro no checkout:', err);
-        this.mensagem.set('Erro ao processar pedido. Tente novamente.');
-      }
-    });
+    this.carrinho.limpar();
+
+    alert('Pedido finalizado com sucesso!');
+    this.router.navigate(['/historico']);
   }
 }

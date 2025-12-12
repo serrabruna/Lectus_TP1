@@ -5,11 +5,6 @@
            routerLinkActive="aba-ativa" 
            [routerLinkActiveOptions]="{exact: true}"
            class="aba-item">Carrinho</a>
-        
-        <a routerLink="/historico" 
-           routerLinkActive="aba-ativa" 
-           [routerLinkActiveOptions]="{exact: true}"
-           class="aba-item">Histórico</a>
     </div>
 
     @if(livros().length === 0){
@@ -19,7 +14,7 @@
     </div>
     }@else{
     <div class="lista">
-        @for(item of livros(); track item.livro.id){
+        @for(item of livros(); track item.id){
         <div class="item">
             <img class="thump" [src]=" item.livro.imageURL" [alt]="item.livro.titulo">
             <div class="info">
@@ -27,10 +22,14 @@
                 <p class="preco">R$ {{(item.livro.preco).toFixed(2)}}</p>
                 <div class="qtd">
                     <label>Quantidade</label>
-                    <input type="number" min="1" [value]="item.quantidade" (input)="atualizar(item.livro.id, $event)">
+                    <input 
+                        type="number" 
+                        min="1" 
+                        [ngModel]="item.quantidade" 
+                        (ngModelChange)="atualizar(item.id, $event)">
                 </div>
                 <div class="acoes">
-                    <button class="btn ghost" (click)="remover(item.livro.id)">Remover</button>
+                    <button class="btn ghost" (click)="remover(item.id)">Remover</button>
                 </div>
             </div>
         </div>

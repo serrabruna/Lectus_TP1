@@ -61,7 +61,8 @@
               "buildTarget": "Lectus:build:production"
             },
             "development": {
-              "buildTarget": "Lectus:build:development"
+              "buildTarget": "Lectus:build:development",
+              "proxyConfig": "proxy.conf.json"
             }
           },
           "defaultConfiguration": "development"

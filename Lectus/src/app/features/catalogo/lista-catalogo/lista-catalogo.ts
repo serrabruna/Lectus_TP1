@@ -26,7 +26,7 @@ export class ListaCatalogo {
 
   loading = signal(true);
   alfabeto = Array.from({ length: 26 }, (_, i) => String.fromCharCode(65 + i));
-  filtroAtivo = signal<string>('H');
+  filtroAtivo = signal<string>('TODOS');
 
   private livroSignal = toSignal(
     this.livroService.listar(),
@@ -85,7 +85,7 @@ export class ListaCatalogo {
 
   prodExibidos = computed(() => {
     return this.apenaspromo()
-      ? this.books().filter(p => p.empromocao)
+      ? this.books().filter(p => p.promocao)
       : this.books();
   });
 

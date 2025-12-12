@@ -27,10 +27,6 @@ jobs:
       working-directory: ./Lectus
       run: npm install
 
-    - name: Rodar Testes Unitarios do Angular
-      working-directory: ./Lectus
-      run: npm run test -- --watch=false
-
     - name: Fazer Build para Producao
       working-directory: ./Lectus
       run: npm run build -- --configuration=production

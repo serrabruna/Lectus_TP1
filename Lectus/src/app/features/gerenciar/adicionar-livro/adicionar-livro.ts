@@ -22,10 +22,15 @@ export class AdicionarLivro {
   enviando = signal(false);
   mensagem = signal('');
 
-  categorias: Signal<Categoria[]> = toSignal(this.categoriaService.listar(), { initialValue: [] });
+  categorias = signal<Categoria[]>([
+    { id: 1, nome: 'Ficção' },
+    { id: 2, nome: 'Romance' },
+    { id: 3, nome: 'Técnico' },
+    { id: 4, nome: 'Fantasia' },
+    { id: 5, nome: 'Terror' }
+  ]);
 
   novoLivro: Livro = {
-    id: 0, 
     categoria_id: 1,
     titulo: '',
     autor: '',
@@ -36,37 +41,64 @@ export class AdicionarLivro {
     editora: '',
     imageURL: '',
     data_publicacao: new Date(),
-    empromocao: false, 
+    promocao: false, 
   };
 
-  onSubmit(form: NgForm){
-    if(form.invalid){
-      this.mensagem.set('Preencha todos os campos obrigatórios.');
+  onSubmit(form: NgForm) {
+    if (form.invalid) {
+      this.mensagem.set('Por favor, preencha todos os campos obrigatórios.');
       return;
     }
 
     this.enviando.set(true);
     this.mensagem.set('Adicionando Livro...');
 
-    this.livroService.adicionarLivro(this.novoLivro).subscribe({
+    const livroParaEnviar = {
+      ...this.novoLivro,
+      categoria_id: Number(this.novoLivro.categoria_id),
+      preco: Number(this.novoLivro.preco),
+      estoque: Number(this.novoLivro.estoque),
+      promocao: !!this.novoLivro.promocao,
+      data_publicacao: new Date(this.novoLivro.data_publicacao)
+    };
+
+    console.log('Enviando novo livro:', livroParaEnviar);
+
+    this.livroService.adicionarLivro(livroParaEnviar).subscribe({
       next: (res) => {
         this.mensagem.set(`Livro "${res.titulo}" adicionado com sucesso!`);
-
-        form.resetForm;
-      },
-      error: err => {
-        console.error('Erro ao adicionar livro: ' + err);
-        this.mensagem.set(`Erro ao adicionar livro: ${err.message}.`);
         this.enviando.set(false);
+        
+        form.resetForm(); 
+        
+        this.resetarModelo();
       },
-      complete: () => {
+      error: (err) => {
+        console.error('Erro detalhado:', err);
+        const msgErro = err.error?.message || err.statusText || 'Erro desconhecido';
+        this.mensagem.set(`Erro ao adicionar livro: ${msgErro}`);
         this.enviando.set(false);
       }
-    })
+    });
   }
 
   onDataPublicacaoChange(dateString: string) {
     this.novoLivro.data_publicacao = dateString ? new Date(dateString) : new Date();
   }
-
+  
+  private resetarModelo() {
+    this.novoLivro = {
+      categoria_id: 1,
+      titulo: '',
+      autor: '',
+      isbn: '',
+      preco: 0,
+      estoque: 1,
+      sinopse: '',
+      editora: '',
+      imageURL: '',
+      data_publicacao: new Date(),
+      promocao: false
+    };
+  }
 }

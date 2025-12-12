@@ -4,14 +4,11 @@ import { AuthLayout } from './core/layouts/auth-layout/auth-layout';
 import { MainLayout } from './core/layouts/main-layout/main-layout';
 import { ListaCatalogo } from './features/catalogo/lista-catalogo/lista-catalogo';
 import { CardLivro } from './features/catalogo/card-livro/card-livro';
-import { LoginForm } from './features/login/login-form/login-form';
 import { AdicionarLivro } from './features/gerenciar/adicionar-livro/adicionar-livro'; 
 import { Carrinho } from './features/carrinho/carrinho/carrinho';
 import { GerenciarLivros } from './features/gerenciar/gerenciar-livros/gerenciar-livros';
 import { EditarLivro } from './features/gerenciar/editar-livro/editar-livro';
-import { Historico } from './features/historico/historico';
 import { Checkout } from './features/checkout/checkout';
-import { ResumoPedido } from './features/resumo-pedido/resumo-pedido';
 import { DeletarLivro } from './features/gerenciar/deletar-livro/deletar-livro';
 
 
@@ -22,7 +19,6 @@ export const routes: Routes = [
     children: [
       { path: '', redirectTo: 'cadastro', pathMatch: 'full' },
       { path: 'cadastro', component: CadastroForm },
-      { path: 'login', component: LoginForm },
     ]
   },
 
@@ -43,9 +39,7 @@ export const routes: Routes = [
           { path: '', redirectTo: 'adicionar', pathMatch: 'full' }
         ]
       },
-      { path: 'historico', component: Historico },
       { path: 'checkout', component: Checkout },
-      { path: 'resumo-pedido', component: ResumoPedido },
 
       { path: '', redirectTo: 'catalogo', pathMatch: 'full' }
     ]

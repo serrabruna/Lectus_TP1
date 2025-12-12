@@ -5,6 +5,7 @@ import { CarrinhoService } from '../../features/carrinho/services/carrinho/carri
 
 @Component({
   selector: 'app-icones',
+  imports: [RouterLink],
   templateUrl: './icones.html',
   styleUrl: './icones.css',
 })

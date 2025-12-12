@@ -37,7 +37,7 @@
     <div class="livros-grid">
 
         @for (livro of livros(); track livro.id) {
-        <article class="livro-card" [class.promo]="livro.empromocao" [class.esgotado]="livro.estoque === 0"
+        <article class="livro-card" [class.promo]="livro.promocao" [class.esgotado]="livro.estoque === 0"
             [routerLink]="['/catalogo', livro.id]">
 
             <img [src]="livro.imageURL" [alt]="livro.titulo" class="livro-thumb">

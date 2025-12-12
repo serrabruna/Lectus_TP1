@@ -1,13 +1,13 @@
 import { CommonModule, DatePipe } from '@angular/common';
 import { Component, inject, Signal, signal } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
-import { ActivatedRoute, Router, RouterLink } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { LivroService } from '../../catalogo/service/livro.service';
 import { CategoriaService } from '../../categorias/service/categoria.service';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { Livro } from '../../../model/livro';
 import { Categoria } from '../../../model/categoria';
-import { of, switchMap, throwError, EMPTY } from 'rxjs';
+import { EMPTY, switchMap } from 'rxjs'; 
 
 @Component({
   selector: 'app-editar-livro',
@@ -22,7 +22,14 @@ export class EditarLivro {
   private categoriaService = inject(CategoriaService);
 
   livro = signal<Livro | null>(null);
-  categorias: Signal<Categoria[]> = toSignal(this.categoriaService.listar(), { initialValue: [] });
+  categorias = signal<Categoria[]>([
+    { id: 1, nome: 'Ficção' },
+    { id: 2, nome: 'Romance' },
+    { id: 3, nome: 'Técnico' },
+    { id: 4, nome: 'Fantasia' },
+    { id: 5, nome: 'Terror' }
+  ]);
+
 
   enviando = signal(false);
   mensagem = signal('');
@@ -30,35 +37,39 @@ export class EditarLivro {
 
   ngOnInit(): void {
     this.route.paramMap.pipe(
-        switchMap(params => {
-            const idParam = params.get('id');
-            const id = Number(idParam);
+      switchMap(params => {
+        const idParam = params.get('id');
+        const id = Number(idParam);
 
-            this.loading.set(true);
-            this.mensagem.set('');
-            this.livro.set(null); 
+        this.loading.set(true);
+        this.mensagem.set('');
+        this.livro.set(null);
 
-            if (!idParam || isNaN(id) || id <= 0) {
-                this.loading.set(false);
-                this.mensagem.set('Erro: ID do livro inválido na URL. Por favor, verifique a rota.');
-                return EMPTY; 
-            }
-            
-            return this.livroService.buscarPorId(id);
-        })
+        if (!idParam || isNaN(id) || id <= 0) {
+          this.loading.set(false);
+          this.mensagem.set('Erro: ID do livro inválido na URL.');
+          return EMPTY;
+        }
+
+        return this.livroService.buscarPorId(id);
+      })
     ).subscribe({
-        next: (livroCarregado) => {
-            if (livroCarregado === null) {
-                  return;
-            }
-            this.livro.set(livroCarregado);
-            this.loading.set(false);
-        },
-        error: (err) => {
-            console.error('Erro ao carregar livro para edição:', err);
-            this.mensagem.set('Livro não encontrado ou erro ao carregar os dados.');
-            this.loading.set(false);
-        },
+      next: (livroCarregado) => {
+        if (!livroCarregado) return;
+
+        const livroAjustado = {
+            ...livroCarregado,
+            promocao: !!livroCarregado.promocao 
+        };
+
+        this.livro.set(livroAjustado);
+        this.loading.set(false);
+      },
+      error: (err) => {
+        console.error('Erro ao carregar:', err);
+        this.mensagem.set('Erro ao carregar os dados do livro.');
+        this.loading.set(false);
+      },
     });
   }
 
@@ -71,28 +82,46 @@ export class EditarLivro {
     }
   }
 
-  onSave(form: NgForm): void {
-    if (form.invalid || !this.livro()) {
-      this.mensagem.set('Preencha todos os campos obrigatórios.');
+
+  onSave(form: NgForm) {
+    if (form.invalid) {
+      this.mensagem.set('Por favor, preencha todos os campos corretamente.');
+      return;
+    }
+
+    const dadosFormulario = this.livro();
+    
+    if (!dadosFormulario || !dadosFormulario.id) {
+      this.mensagem.set('Erro: Livro não identificado.');
       return;
     }
 
     this.enviando.set(true);
-    this.mensagem.set('Salvando alterações...');
+    this.mensagem.set('');
 
-    const livroAtualizado = this.livro()!;
-    
-    this.livroService.atualizarLivro(livroAtualizado).subscribe({
+    const livroCorrigido: Livro = {
+      ...dadosFormulario,
+      preco: Number(dadosFormulario.preco),
+      estoque: Number(dadosFormulario.estoque),
+      promocao: !!dadosFormulario.promocao,
+      data_publicacao: new Date(dadosFormulario.data_publicacao)
+    };
+
+    console.log('Enviando para o service:', livroCorrigido);
+
+    this.livroService.atualizarLivro(livroCorrigido).subscribe({
       next: () => {
-        this.mensagem.set(`Livro "${livroAtualizado.titulo}" atualizado com sucesso!`);
         this.enviando.set(false);
+        alert('Livro editado com sucesso!');
+        this.router.navigate(['/catalogo']);
       },
       error: (err) => {
-        console.error('Erro ao salvar livro:', err);
-        const errorMsg = err.error?.message || err.message || 'Erro desconhecido';
-        this.mensagem.set(`Erro ao salvar: ${errorMsg}.`);
         this.enviando.set(false);
-      },
+        console.error('Erro API:', err);
+        const errorMsg = err.error?.message || err.statusText || 'Erro desconhecido';
+        this.mensagem.set(`Erro ao salvar: ${errorMsg}`);
+      }
     });
   }
+  
 }

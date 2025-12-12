@@ -23,13 +23,13 @@ export class CadastroForm {
   novoUsuario: Usuario = {
     nome: '',
     email: '',
-    senha: '',
+    senha_hash: '',
     telefone: '',
     tipo_usuario: 'CLIENTE'
   };
 
-onSubmit(form: NgForm){
-    if(form.invalid){
+  onSubmit(form: NgForm) {
+    if (form.invalid) {
       this.mensagem.set("Preencha todos os campos obrigatórios.");
       return;
     }
@@ -40,10 +40,10 @@ onSubmit(form: NgForm){
     this.cadastroService.cadastrarUsuario(this.novoUsuario).subscribe({
       next: (res) => {
         console.log('Cadastro efetuado:', res);
-        this.mensagem.set('Cadastro realizado com sucesso! Pode fazer login.');
-        
+        this.mensagem.set('Cadastro realizado com sucesso!');
+
         form.resetForm();
-        setTimeout(() => this.router.navigate(['/login']), 1500);
+        setTimeout(() => this.router.navigate(['/catalogo']), 1500);
       },
       error: (err) => {
         console.error('Erro no cadastro:', err);
