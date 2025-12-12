@@ -41,7 +41,6 @@ export class EditarLivro {
             if (!idParam || isNaN(id) || id <= 0) {
                 this.loading.set(false);
                 this.mensagem.set('Erro: ID do livro inválido na URL. Por favor, verifique a rota.');
-                // Observable vazio para encerrar a busca sem erro de console RxJS
                 return EMPTY; 
             }
             
@@ -72,29 +71,28 @@ export class EditarLivro {
     }
   }
 
-    onSave(form: NgForm): void {
-      if (form.invalid || !this.livro()) {
-        this.mensagem.set('Preencha todos os campos obrigatórios.');
-        return;
-      }
-
-      this.enviando.set(true);
-      this.mensagem.set('Salvando alterações...');
-
-      const livroAtualizado = this.livro()!;
-      
-      // Simula a atualização do livro no serviço
-      this.livroService.simularAtualizacao(livroAtualizado).subscribe({
-        next: () => {
-          this.mensagem.set(`Livro "${livroAtualizado.titulo}" (ID: ${livroAtualizado.id}) atualizado com sucesso!`);
-          this.enviando.set(false);
-        },
-        error: (err) => {
-          console.error('Erro ao salvar livro:', err);
-          this.mensagem.set(`Erro ao salvar: ${err.message}.`);
-          this.enviando.set(false);
-        },
-      });
+  onSave(form: NgForm): void {
+    if (form.invalid || !this.livro()) {
+      this.mensagem.set('Preencha todos os campos obrigatórios.');
+      return;
     }
-  
+
+    this.enviando.set(true);
+    this.mensagem.set('Salvando alterações...');
+
+    const livroAtualizado = this.livro()!;
+    
+    this.livroService.atualizarLivro(livroAtualizado).subscribe({
+      next: () => {
+        this.mensagem.set(`Livro "${livroAtualizado.titulo}" atualizado com sucesso!`);
+        this.enviando.set(false);
+      },
+      error: (err) => {
+        console.error('Erro ao salvar livro:', err);
+        const errorMsg = err.error?.message || err.message || 'Erro desconhecido';
+        this.mensagem.set(`Erro ao salvar: ${errorMsg}.`);
+        this.enviando.set(false);
+      },
+    });
+  }
 }

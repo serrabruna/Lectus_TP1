@@ -1,7 +1,10 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { Router, RouterLinkActive, RouterLinkWithHref } from '@angular/router';
 import { HistoricoService } from '../../features/historico/services/historico/historico.service';
 import { CommonModule } from '@angular/common';
+import { HttpClient } from '@angular/common/http';
+import { Observable, tap } from 'rxjs';
+import { Pedido } from '../../model/pedido';
 
 @Component({
   selector: 'app-historico',
@@ -10,13 +13,32 @@ import { CommonModule } from '@angular/common';
   styleUrl: './historico.css',
 })
 export class Historico {
-  private router = inject(Router);
-  private historicoService = inject(HistoricoService);
-  pedidos = this.historicoService.pedidos;
-  irCarrinho() {
-    this.router.navigate(['/carrinho']);
+  private http = inject(HttpClient);
+  private readonly apiUrl = 'https://apilectus-production.up.railway.app'; 
+
+  private _pedidos = signal<Pedido[]>([]);
+  pedidos = this._pedidos.asReadonly();
+
+  constructor() {
+    this.carregarPedidos();
   }
-  irHistorico() {
-    this.router.navigate(['/historico']);
+
+  carregarPedidos() {
+    this.http.get<Pedido[]>(`${this.apiUrl}/pedidos`)
+      .subscribe({
+        next: (lista) => this._pedidos.set(lista),
+        error: (err) => console.error('Erro ao carregar histórico', err)
+      });
   }
+
+  registrarPedido(pedido: Pedido): Observable<Pedido> {
+    return this.http.post<Pedido>(`${this.apiUrl}/pedido`, pedido).pipe(
+      tap(() => {
+        // Após criar, recarrega a lista para atualizar o histórico
+        this.carregarPedidos(); 
+      })
+    );
+  }
+  
+  ultimoPedido = signal<Pedido | null>(null);
 }

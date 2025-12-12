@@ -28,25 +28,27 @@ export class CadastroForm {
     tipo_usuario: 'CLIENTE'
   };
 
-  onSubmit(form: NgForm){
+onSubmit(form: NgForm){
     if(form.invalid){
       this.mensagem.set("Preencha todos os campos obrigatórios.");
+      return;
     }
 
     this.enviando.set(true);
-    this.mensagem.set('Cadastro Realizado com sucesso! Redirecionando...');
+    this.mensagem.set('A realizar cadastro...');
 
     this.cadastroService.cadastrarUsuario(this.novoUsuario).subscribe({
       next: (res) => {
-        console.log('Resposta de cadastro (mocked): ', res);
-        this.mensagem.set('Cadastro realizado com sucesso! Redirecionando...');
-
+        console.log('Cadastro efetuado:', res);
+        this.mensagem.set('Cadastro realizado com sucesso! Pode fazer login.');
+        
         form.resetForm();
-        setTimeout(() => this.router.navigate(['/']), 1500);
+        setTimeout(() => this.router.navigate(['/login']), 1500);
       },
       error: (err) => {
-        console.error('Erro no cadastro (mocked): ', err);
-        this.mensagem.set(`Erro ao cadastrar: ${err.message}. Tente novamente. `);
+        console.error('Erro no cadastro:', err);
+        const msgErro = err.error?.message || 'Verifique os dados e tente novamente.';
+        this.mensagem.set(`Erro ao cadastrar: ${msgErro}`);
         this.enviando.set(false);
       },
       complete: () => {
@@ -54,8 +56,4 @@ export class CadastroForm {
       }
     })
   }
-
-
-  
-  
 }

@@ -10,7 +10,7 @@ import { CommonModule } from '@angular/common';
 @Component({
   selector: 'app-login-form',
   standalone: true,
-imports: [CommonModule, FormsModule, Header],
+  imports: [CommonModule, FormsModule],
   templateUrl: './login-form.html',
   styleUrl: './login-form.css'
 })
@@ -19,33 +19,36 @@ export class LoginForm {
   private router = inject(Router);
   private loginService = inject(LoginService)
 
-  enviando = signal(false);
-  mensagem = signal('');
-
-  Usuario: loginUsuario = {
+  userLogin: loginUsuario = {
     email: '',
     senha: ''
   };
 
+  enviando = signal(false);
+  mensagem = signal('');
+
   onSubmit(form: NgForm){
     if(form.invalid){
       this.mensagem.set("Preencha todos os campos obrigatórios.");
+      return; 
     }
 
     this.enviando.set(true);
-    this.mensagem.set('Login Realizado com sucesso! Redirecionando...');
+    this.mensagem.set('A processar login...');
 
-    this.loginService.logarUsuario(this.Usuario).subscribe({
+    this.loginService.logarUsuario(this.userLogin).subscribe({
       next: (res) => {
-        console.log('Resposta de login (mocked): ', res);
-        this.mensagem.set('Login realizado com sucesso! Redirecionando...');
+        console.log('Login efetuado:', res);
+        
 
+        this.mensagem.set('Login realizado com sucesso! Redirecionando...');
         form.resetForm();
         setTimeout(() => this.router.navigate(['/']), 1500);
       },
       error: (err) => {
-        console.error('Erro no login (mocked): ', err);
-        this.mensagem.set(`Erro ao logar: ${err.message}. Tente novamente. `);
+        console.error('Erro no login:', err);
+        const msgErro = err.error?.message || err.statusText || 'Erro desconhecido';
+        this.mensagem.set(`Erro ao logar: ${msgErro}. Tente novamente.`);
         this.enviando.set(false);
       },
       complete: () => {

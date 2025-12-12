@@ -60,21 +60,24 @@ export class DeletarLivro {
     const livro = this.livro();
     if(!livro) return;
 
-    if (!confirm(`Tem certeza que deseja DELETAR o livro: "${livro.titulo}" (ID: ${livro.id})?`)) {
+    if (!confirm(`Tem certeza que deseja DELETAR o livro: "${livro.titulo}"?`)) {
         return;
     }
     this.enviando.set(true);
     this.mensagem.set('Deletando livro...');
     
-    this.livroService.simularDeletar(livro.id).subscribe({
+    this.livroService.deletar(livro.id).subscribe({
       next: () => {
-        this.mensagem.set(`Livro "${livro.titulo}" deletado com sucesso!`);
+        this.mensagem.set(`Livro deletado com sucesso!`);
         this.livro.set(null);
         this.enviando.set(false);
+        // Redirecionar é uma boa prática aqui
+        setTimeout(() => this.router.navigate(['/gerenciar-livros']), 1500);
       },
       error: (err) => {
         console.error('Erro ao deletar livro:', err);
-        this.mensagem.set(`Erro ao deletar: ${err.message}.`);
+        const errorMsg = err.error?.message || err.message;
+        this.mensagem.set(`Erro ao deletar: ${errorMsg}.`);
         this.enviando.set(false);
       },
     });
