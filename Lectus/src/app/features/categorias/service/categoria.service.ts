@@ -2,30 +2,16 @@ import { inject, Injectable } from '@angular/core';
 import { LoggerService } from '../../../core/services/logger/logger.service';
 import { delay, Observable, of } from 'rxjs';
 import { Categoria } from '../../../model/categoria';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root',
 })
 export class CategoriaService {
-  private logger= inject(LoggerService);
+  private http = inject(HttpClient);
+  private readonly apiUrl = 'https://apilectus-production.up.railway.app';
 
-  private readonly mockCategorias = [
-    {
-      id: 1,
-      nome: "Fantasia"
-    },
-    {
-      id: 2,
-      nome: "Terror"
-    },
-    {
-      id: 3,
-      nome: "Suspensa"
-    }
-  ];
-
-  listar(): Observable<Categoria[]>{
-      this.logger.info('[LivroService] Simulação de listagem de livros.');
-      return of(this.mockCategorias).pipe(delay(500));
-    }
+  listar(): Observable<Categoria[]> {
+    return this.http.get<Categoria[]>(`${this.apiUrl}/categorias`);
+  }
 }
