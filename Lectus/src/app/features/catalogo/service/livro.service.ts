@@ -12,7 +12,6 @@ export class LivroService {
   private readonly apiUrl = '/api';
 
   private logger = inject(LoggerService);
-  private readonly apiUrl = '/api';
 
   listar(): Observable<Livro[]> {
     return this.http.get<Livro[]>(`${this.apiUrl}/livros`);
