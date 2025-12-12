@@ -11,6 +11,6 @@ export class LoginService {
   private readonly apiUrl = 'https://apilectus-production.up.railway.app';
 
   logarUsuario(login: loginUsuario): Observable<any> {
-    return this.http.post<any>(`${this.apiUrl}/auth/login`, login);
+    return this.http.post<any>(`${this.apiUrl}/usuarios`, login);
   }
 }

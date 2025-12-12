@@ -12,7 +12,7 @@ export class CadastroService {
   private readonly apiUrl = 'https://apilectus-production.up.railway.app';
 
   cadastrarUsuario(usuario: Usuario): Observable<any> {
-    return this.http.post<any>(`${this.apiUrl}/usuario`, usuario);
+    return this.http.post<any>(`${this.apiUrl}/usuarios`, usuario);
   }
 
 }

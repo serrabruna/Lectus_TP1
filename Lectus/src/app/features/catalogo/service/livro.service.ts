@@ -14,26 +14,23 @@ export class LivroService {
   private logger = inject(LoggerService);
 
   listar(): Observable<Livro[]> {
-    // VERIFIQUE NO SWAGGER: O endpoint correto é /livro ou /livros?
-    return this.http.get<Livro[]>(`${this.apiUrl}/livro`);
+    return this.http.get<Livro[]>(`${this.apiUrl}/livros`);
   } 
 
-  // BUSCAR LIVRO POR ID
   buscarPorId(id: number): Observable<Livro> {
-    return this.http.get<Livro>(`${this.apiUrl}/livro/${id}`);
+    return this.http.get<Livro>(`${this.apiUrl}/livros/${id}`);
   }
 
-  // ADICIONAR LIVRO
   adicionarLivro(novoLivro: Livro): Observable<Livro> {
-    return this.http.post<Livro>(`${this.apiUrl}/livro`, novoLivro);
+    return this.http.post<Livro>(`${this.apiUrl}/livros`, novoLivro);
   }
 
   atualizarLivro(livro: Livro): Observable<Livro> {
-    return this.http.put<Livro>(`${this.apiUrl}/livro/${livro.id}`, livro);
+    return this.http.put<Livro>(`${this.apiUrl}/livros/${livro.id}`, livro);
   }
 
   deletar(id: number): Observable<void> {
-    return this.http.delete<void>(`${this.apiUrl}/livro/${id}`);
+    return this.http.delete<void>(`${this.apiUrl}/livros/${id}`);
   }
   
   simularAtualizacao(livro: Livro) { return this.atualizarLivro(livro); }
