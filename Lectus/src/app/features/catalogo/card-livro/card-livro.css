@@ -16,6 +16,12 @@
 
 }
 
+.top-icon {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+}
+
 .topo {
     margin-left: 150px;
     margin-bottom: 20px;

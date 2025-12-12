@@ -1,32 +1,35 @@
-import { Injectable, signal } from '@angular/core';
+import { Injectable, inject, signal } from '@angular/core';
+import { HttpClient } from '@angular/common/http'; 
+import { Observable, tap } from 'rxjs';
 import { Pedido } from '../../../../model/pedido';
-import { ItemPedido } from '../../../../model/item-pedido';
-
-const CHAVE = 'lojatp1_historico';
 
 @Injectable({ providedIn: 'root' })
 export class HistoricoService {
+  private http = inject(HttpClient);
   private readonly apiUrl = '/api';
 
-  private _ultimoPedido = signal<Pedido | null>(null);
-  ultimoPedido = this._ultimoPedido;
+  private _pedidos = signal<Pedido[]>([]);
+  pedidos = this._pedidos.asReadonly(); 
 
-  private _pedidos = signal<Pedido[]>(this.carregar());
-
-  pedidos = this._pedidos;
-
-  private carregar(): Pedido[] {
-    const data = localStorage.getItem(CHAVE);
-    return data ? JSON.parse(data) : [];
+  constructor() {
+    this.carregarPedidos(); 
   }
 
-  registrarPedido(pedido: Pedido) {
-    const lista = [...this._pedidos(), pedido];
-    this._pedidos.set(lista);
-    this._ultimoPedido.set(pedido);
-
-    localStorage.setItem(CHAVE, JSON.stringify(lista));
+  carregarPedidos() {
+    this.http.get<Pedido[]>(`${this.apiUrl}/pedido`)
+      .subscribe({
+        next: (lista) => this._pedidos.set(lista),
+        error: (err) => console.error('Erro ao carregar histórico', err)
+      });
   }
 
-
+  registrarPedido(pedido: any): Observable<any> {
+    return this.http.post<any>(`${this.apiUrl}/pedido`, pedido).pipe(
+      tap(() => {
+        this.carregarPedidos();
+      })
+    );
+  }
+  
+  ultimoPedido = signal<Pedido | null>(null);
 }

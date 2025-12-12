@@ -12,6 +12,35 @@
     margin-bottom: 16px;
 }
 
+.aba-item {
+    text-decoration: none;
+    color: var(--cinza); 
+    font-weight: 600;
+    padding: 10px 0;
+    transition: color 0.2s;
+    position: relative;
+    font-size: 1.1rem; 
+}
+
+.aba-item:hover {
+    color: var(--preto-botoes);
+}
+
+.aba-item.aba-ativa {
+    color: var(--preto-botoes); 
+}
+
+.aba-item.aba-ativa::after {
+    content: '';
+    position: absolute;
+    bottom: -5px; 
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background-color: var(--azul-principal); 
+    border-radius: 2px;
+}
+
 .historico>div:first-of-type {
     display: flex;
     gap: 24px;

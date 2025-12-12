@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { CadastroForm } from './cadastro-form';
+import { provideRouter } from '@angular/router';
 
 describe('Cadastro', () => {
   let component: CadastroForm;
@@ -8,7 +9,8 @@ describe('Cadastro', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [CadastroForm]
+      imports: [CadastroForm],
+      providers: [provideRouter([])],
     })
     .compileComponents();
 

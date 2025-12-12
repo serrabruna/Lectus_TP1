@@ -1,0 +1,60 @@
+ <div class="titulo">
+        <h2>Deletar Livro</h2>
+</div>
+<section class="gerenciamento-wrapper">
+    
+    @if (loading()) {
+        <div class="loading-message">Carregando detalhes do livro...</div>
+    }
+
+    @else if (livro()) {
+        <div class="delete-card">
+            
+            <div class="image-area">
+                <img [src]="livro()!.imageURL" 
+                     alt="Capa do Livro: {{ livro()!.titulo }}" 
+                     class="capa">
+            </div>
+
+            <div class="livro-detalhes">
+                
+                <h2 class="titulo">{{ livro()!.titulo }}</h2>
+                <p class="autor">Autor: {{ livro()!.autor }}</p>
+                
+                <div class="dadoslivro-grid">
+                    <p><span>ID Interno:</span> {{ livro()!.id }}</p>
+                    <p><span>ISBN:</span> {{ livro()!.isbn }}</p>
+                    <p><span>Editora:</span> {{ livro()!.editora }}</p>
+                    <p><span>Preço:</span> {{ livro()!.preco | currency:'BRL':'symbol':'1.2-2' }}</p>
+                    <p><span>Estoque:</span> {{ livro()!.estoque }}</p>
+                    <p><span>Publicação:</span> {{ livro()!.data_publicacao | date:'mediumDate' }}</p>
+                </div>
+                
+                <hr>
+
+                <p class="warning-text">
+                    ⚠️ Confirme a remoção. Esta ação não pode ser desfeita.
+                </p>
+                
+                <div class="button-row">
+                    <button class="btn-acao btn-deletar-confirmar" 
+                            (click)="onDelete()" 
+                            [disabled]="enviando()">
+                        DELETAR
+                    </button>
+                    
+                    <a [routerLink]="['/gerenciar-livros/adicionar']" 
+                       class="btn-acao btn-cancelar-deletar"
+                       [class.disabled]="enviando()">
+                        CANCELAR
+                    </a>
+                </div>
+
+            </div>
+        </div>
+    }
+
+    @if (mensagem()) {
+        <p class="mensagem error-message">{{ mensagem() }}</p>
+    }
+</section>

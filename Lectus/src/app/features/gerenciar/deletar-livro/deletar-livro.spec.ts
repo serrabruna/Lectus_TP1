@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { MenuLateral } from './menu-lateral';
+import { DeletarLivro } from './deletar-livro';
 import { provideRouter } from '@angular/router';
 
-describe('MenuLateral', () => {
-  let component: MenuLateral;
-  let fixture: ComponentFixture<MenuLateral>;
+describe('DeletarLivro', () => {
+  let component: DeletarLivro;
+  let fixture: ComponentFixture<DeletarLivro>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [MenuLateral],
-      providers: [provideRouter([])],
+      imports: [DeletarLivro],
+      providers: [provideRouter([])]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(MenuLateral);
+    fixture = TestBed.createComponent(DeletarLivro);
     component = fixture.componentInstance;
     await fixture.whenStable();
   });

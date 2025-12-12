@@ -36,15 +36,13 @@ export class Checkout {
   metodoSelecionado = '';
 
 
-
   onSubmit(form: NgForm) {
     if (form.invalid) {
       this.mensagem.set('Preencha todos os campos obrigatórios.');
       return;
     }
 
-    const pedido = {
-      id: Date.now(),
+    const pedido: any = { 
       itens: this.carrinho.itens(),
       total: this.carrinho.valorTotal(),
       endereco: this.novoEndereco,
@@ -52,17 +50,25 @@ export class Checkout {
       data: new Date()
     };
 
+    this.mensagem.set('Processando pedido...');
 
-    this.historico.registrarPedido(pedido);
-    this.carrinho.limpar();
-
-    this.router.navigate(['/resumo-pedido'], {
-      state: {
-        nomeUsuario: this.nomeUsuario,
-        pedido
+    this.historico.registrarPedido(pedido).subscribe({
+      next: (pedidoCriado: any) => { 
+        console.log('Pedido criado:', pedidoCriado);
+        
+        this.carrinho.limpar();
+        
+        this.router.navigate(['/resumo-pedido'], {
+          state: {
+            nomeUsuario: this.nomeUsuario,
+            pedido: pedidoCriado
+          }
+        });
+      },
+      error: (err: any) => { 
+        console.error('Erro no checkout:', err);
+        this.mensagem.set('Erro ao processar pedido. Tente novamente.');
       }
     });
-
-
   }
 }

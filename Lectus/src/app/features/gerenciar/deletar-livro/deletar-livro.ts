@@ -1,32 +1,25 @@
-import { CommonModule, DatePipe } from '@angular/common';
-import { Component, inject, Signal, signal } from '@angular/core';
-import { FormsModule, NgForm } from '@angular/forms';
+import { Component, inject, signal } from '@angular/core';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { LivroService } from '../../catalogo/service/livro.service';
-import { CategoriaService } from '../../categorias/service/categoria.service';
-import { toSignal } from '@angular/core/rxjs-interop';
 import { Livro } from '../../../model/livro';
-import { Categoria } from '../../../model/categoria';
-import { of, switchMap, throwError, EMPTY } from 'rxjs';
+import { EMPTY, switchMap } from 'rxjs';
+import { CurrencyPipe, DatePipe } from '@angular/common';
 
 @Component({
-  selector: 'app-editar-livro',
-  imports: [FormsModule, CommonModule, DatePipe],
-  templateUrl: './editar-livro.html',
-  styleUrl: './editar-livro.css',
+  selector: 'app-deletar-livro',
+  imports: [RouterLink, DatePipe, CurrencyPipe],
+  templateUrl: './deletar-livro.html',
+  styleUrl: './deletar-livro.css',
 })
-export class EditarLivro {
+export class DeletarLivro {
   private route = inject(ActivatedRoute);
   private router = inject(Router);
   private livroService = inject(LivroService);
-  private categoriaService = inject(CategoriaService);
 
   livro = signal<Livro | null>(null);
-  categorias: Signal<Categoria[]> = toSignal(this.categoriaService.listar(), { initialValue: [] });
-
+  loading = signal(true); 
   enviando = signal(false);
   mensagem = signal('');
-  loading = signal(true);
 
   ngOnInit(): void {
     this.route.paramMap.pipe(
@@ -41,6 +34,7 @@ export class EditarLivro {
             if (!idParam || isNaN(id) || id <= 0) {
                 this.loading.set(false);
                 this.mensagem.set('Erro: ID do livro inválido na URL. Por favor, verifique a rota.');
+                // Observable vazio para encerrar a busca sem erro de console RxJS
                 return EMPTY; 
             }
             
@@ -62,35 +56,28 @@ export class EditarLivro {
     });
   }
 
-  onDataPublicacaoChange(dateString: string) {
-    if (this.livro()) {
-      this.livro.update(l => ({
-        ...l!,
-        data_publicacao: dateString ? new Date(dateString) : new Date()
-      }));
-    }
-  }
+  onDelete(): void{
+    const livro = this.livro();
+    if(!livro) return;
 
-  onSave(form: NgForm): void {
-    if (form.invalid || !this.livro()) {
-      this.mensagem.set('Preencha todos os campos obrigatórios.');
-      return;
+    if (!confirm(`Tem certeza que deseja DELETAR o livro: "${livro.titulo}"?`)) {
+        return;
     }
-
     this.enviando.set(true);
-    this.mensagem.set('Salvando alterações...');
-
-    const livroAtualizado = this.livro()!;
+    this.mensagem.set('Deletando livro...');
     
-    this.livroService.atualizarLivro(livroAtualizado).subscribe({
+    this.livroService.deletar(livro.id).subscribe({
       next: () => {
-        this.mensagem.set(`Livro "${livroAtualizado.titulo}" atualizado com sucesso!`);
+        this.mensagem.set(`Livro deletado com sucesso!`);
+        this.livro.set(null);
         this.enviando.set(false);
+        // Redirecionar é uma boa prática aqui
+        setTimeout(() => this.router.navigate(['/gerenciar-livros']), 1500);
       },
       error: (err) => {
-        console.error('Erro ao salvar livro:', err);
-        const errorMsg = err.error?.message || err.message || 'Erro desconhecido';
-        this.mensagem.set(`Erro ao salvar: ${errorMsg}.`);
+        console.error('Erro ao deletar livro:', err);
+        const errorMsg = err.error?.message || err.message;
+        this.mensagem.set(`Erro ao deletar: ${errorMsg}.`);
         this.enviando.set(false);
       },
     });

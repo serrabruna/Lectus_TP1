@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { Historico } from './historico';
+import { provideRouter } from '@angular/router';
 
 describe('Historico', () => {
   let component: Historico;
@@ -8,7 +9,8 @@ describe('Historico', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [Historico]
+      imports: [Historico],
+      providers: [provideRouter([])]
     })
     .compileComponents();
 
