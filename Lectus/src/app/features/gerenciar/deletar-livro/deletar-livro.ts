@@ -1,4 +1,4 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, inject, OnInit, signal } from '@angular/core';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { LivroService } from '../../catalogo/service/livro.service';
 import { Livro } from '../../../model/livro';
@@ -11,7 +11,7 @@ import { CurrencyPipe, DatePipe } from '@angular/common';
   templateUrl: './deletar-livro.html',
   styleUrl: './deletar-livro.css',
 })
-export class DeletarLivro {
+export class DeletarLivro implements OnInit {
   private route = inject(ActivatedRoute);
   private router = inject(Router);
   private livroService = inject(LivroService);
@@ -27,59 +27,60 @@ export class DeletarLivro {
             const idParam = params.get('id');
             const id = Number(idParam);
 
-            this.loading.set(true);
             this.mensagem.set('');
             this.livro.set(null); 
 
             if (!idParam || isNaN(id) || id <= 0) {
                 this.loading.set(false);
-                this.mensagem.set('Erro: ID do livro inválido na URL. Por favor, verifique a rota.');
+                this.mensagem.set('Erro: ID inválido.');
                 return EMPTY; 
             }
             
+            this.loading.set(true);
             return this.livroService.buscarPorId(id);
         })
     ).subscribe({
         next: (livroCarregado) => {
-            if (livroCarregado === null) {
-                  return;
-            }
             this.livro.set(livroCarregado);
             this.loading.set(false);
         },
         error: (err) => {
-            console.error('Erro ao carregar livro para edição:', err);
-            this.mensagem.set('Livro não encontrado ou erro ao carregar os dados.');
+            console.error('Erro ao carregar:', err);
+            this.mensagem.set('Livro não encontrado.');
             this.loading.set(false);
         },
     });
   }
 
-  onDelete(): void{
-    const livro = this.livro();
+  onDelete(): void {
+    const livroAtual = this.livro();
 
-    if (!livro || !livro.id) {
-        this.mensagem.set('Erro: Não é possível deletar um livro sem ID.');
+    if (!livroAtual || !livroAtual.id) {
+        this.mensagem.set('Erro: Dados do livro incompletos (ID ausente).');
         return;
     }
 
-    if (!confirm(`Tem certeza que deseja DELETAR o livro: "${livro.titulo}"?`)) {
+    if (!confirm(`Tem certeza que deseja DELETAR o livro: "${livroAtual.titulo}"?`)) {
         return;
     }
+
     this.enviando.set(true);
     this.mensagem.set('Deletando livro...');
     
-    this.livroService.deletar(livro.id).subscribe({
+    this.livroService.deletar(livroAtual.id).subscribe({
       next: () => {
         this.mensagem.set(`Livro deletado com sucesso!`);
-        this.livro.set(null);
+        this.livro.set(null); // Remove da tela imediatamente
         this.enviando.set(false);
-        setTimeout(() => this.router.navigate(['/gerenciar-livros']), 1500);
+        
+        setTimeout(() => {
+            this.router.navigate(['/catalogo']);
+        }, 1500);
       },
       error: (err) => {
-        console.error('Erro ao deletar livro:', err);
-        const errorMsg = err.error?.message || err.message;
-        this.mensagem.set(`Erro ao deletar: ${errorMsg}.`);
+        console.error('Erro ao deletar:', err);
+        const errorMsg = err.error?.message || err.statusText || 'Erro desconhecido';
+        this.mensagem.set(`Erro ao deletar: ${errorMsg}`);
         this.enviando.set(false);
       },
     });

@@ -25,7 +25,6 @@ export class LivroService {
 
   adicionarLivro(novoLivro: Livro): Observable<Livro> {
     return this.http.post<any>(`${this.apiUrl}/livros`, novoLivro).pipe(
-      // Extrai apenas o objeto do livro da resposta { message, object }
       map(resposta => resposta.object)
     );
   }
