@@ -24,12 +24,16 @@ export class LivroService {
 }
 
   adicionarLivro(novoLivro: Livro): Observable<Livro> {
-    return this.http.post<Livro>(`${this.apiUrl}/livros`, novoLivro);
+    return this.http.post<any>(`${this.apiUrl}/livros`, novoLivro).pipe(
+      // Extrai apenas o objeto do livro da resposta { message, object }
+      map(resposta => resposta.object)
+    );
   }
 
   atualizarLivro(livro: Livro): Observable<Livro> {
-    return this.http.put<Livro>(`${this.apiUrl}/livros/${livro.id}`, livro);
-  }
+    const { id, ...dadosParaEnviar } = livro;
+    return this.http.put<Livro>(`${this.apiUrl}/livros/${id}`, dadosParaEnviar);
+}
 
   deletar(id: number): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}/livros/${id}`);

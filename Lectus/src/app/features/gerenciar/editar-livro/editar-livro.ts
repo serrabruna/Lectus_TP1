@@ -82,64 +82,43 @@ export class EditarLivro {
     }
   }
 
-  // Adicione este método logo abaixo do onDataPublicacaoChange
-
   onSave(form: NgForm) {
     if (form.invalid) {
-      this.mensagem.set('Por favor, preencha todos os campos obrigatórios.');
+      this.mensagem.set('Por favor, preencha todos os campos corretamente.');
       return;
     }
 
-    const dadosAtuais = this.livro();
+    const dadosFormulario = this.livro();
     
-    if (!dadosAtuais) {
-      this.mensagem.set('Erro: Nenhum dado de livro carregado.');
+    if (!dadosFormulario || !dadosFormulario.id) {
+      this.mensagem.set('Erro: Livro não identificado.');
       return;
     }
 
     this.enviando.set(true);
     this.mensagem.set('');
 
-    // 1. Tratamento da Data
-    let dataFormatada = '';
-    if (dadosAtuais.data_publicacao) {
-      if (dadosAtuais.data_publicacao instanceof Date) {
-         dataFormatada = dadosAtuais.data_publicacao.toISOString().split('T')[0];
-      } else {
-         const stringData = String(dadosAtuais.data_publicacao);
-         dataFormatada = stringData.split('T')[0];
-      }
-    }
-
-    // 2. Montar o objeto CORRIGIDO
-    // Removemos o ID do corpo para evitar confusão no backend
-    const { id, ...restoDoLivro } = dadosAtuais;
-
-    const livroParaEnviar = {
-      ...restoDoLivro,
-      data_publicacao: dataFormatada,
-      categoria_id: Number(dadosAtuais.categoria_id),
-      promocao: !!dadosAtuais.promocao,
-      
-      // !!! AQUI ESTÁ A CORREÇÃO PRINCIPAL !!!
-      // Converte "25.00" (texto) para 25.00 (número)
-      preco: Number(dadosAtuais.preco) 
+    const livroCorrigido: Livro = {
+      ...dadosFormulario,
+      preco: Number(dadosFormulario.preco),
+      estoque: Number(dadosFormulario.estoque),
+      promocao: !!dadosFormulario.promocao,
+      data_publicacao: new Date(dadosFormulario.data_publicacao)
     };
 
-    console.log('JSON Enviado:', livroParaEnviar);
+    console.log('Enviando para o service:', livroCorrigido);
 
-    // Envia o ID na URL (primeiro parâmetro) e o objeto sem ID no corpo
-    // Se o seu serviço exigir o ID dentro do objeto, mude para: { id: id, ...livroParaEnviar }
-    this.livroService.atualizarLivro({ id: id, ...livroParaEnviar }).subscribe({
+    this.livroService.atualizarLivro(livroCorrigido).subscribe({
       next: () => {
         this.enviando.set(false);
-        alert('Livro atualizado com sucesso!');
-        // this.router.navigate(['/catalogo']); // Descomente se quiser sair da tela
+        alert('Livro editado com sucesso!');
+        this.router.navigate(['/catalogo']);
       },
       error: (err) => {
         this.enviando.set(false);
-        console.error('Erro detalhado:', err);
-        this.mensagem.set('Erro ao salvar. Verifique o console.');
+        console.error('Erro API:', err);
+        const errorMsg = err.error?.message || err.statusText || 'Erro desconhecido';
+        this.mensagem.set(`Erro ao salvar: ${errorMsg}`);
       }
     });
   }

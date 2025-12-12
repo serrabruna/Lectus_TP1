@@ -34,7 +34,6 @@ export class DeletarLivro {
             if (!idParam || isNaN(id) || id <= 0) {
                 this.loading.set(false);
                 this.mensagem.set('Erro: ID do livro inválido na URL. Por favor, verifique a rota.');
-                // Observable vazio para encerrar a busca sem erro de console RxJS
                 return EMPTY; 
             }
             
@@ -75,7 +74,6 @@ export class DeletarLivro {
         this.mensagem.set(`Livro deletado com sucesso!`);
         this.livro.set(null);
         this.enviando.set(false);
-        // Redirecionar é uma boa prática aqui
         setTimeout(() => this.router.navigate(['/gerenciar-livros']), 1500);
       },
       error: (err) => {
