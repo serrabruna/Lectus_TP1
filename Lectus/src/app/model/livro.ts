@@ -1,5 +1,5 @@
 export interface Livro {
-    id?: number; // Agora é opcional para não enviar '0' na criação
+    id?: number; 
     categoria_id: number;
     titulo: string;
     autor: string;
@@ -8,7 +8,7 @@ export interface Livro {
     estoque: number;
     sinopse: string;
     editora: string;
-    imageURL: string;
+    image_url: string;
     data_publicacao: Date | string; 
     promocao?: boolean | number;   
 }
@@ -25,7 +25,7 @@ export class LivroMapper {
             estoque: json.estoque,
             sinopse: json.sinopse,
             editora: json.editora,
-            imageURL: json.imageURL,
+            image_url: json.image_url,
             data_publicacao: json.data_publicacao,
             promocao: json.promocao 
         };
@@ -42,7 +42,7 @@ export class LivroMapper {
             estoque: livro.estoque,
             sinopse: livro.sinopse,
             editora: livro.editora,
-            imageURL: livro.imageURL,
+            image_url: livro.image_url,
             data_publicacao: livro.data_publicacao,
             promocao: livro.promocao 
         };

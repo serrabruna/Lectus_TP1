@@ -78,8 +78,8 @@
                     <div class="form-grid">
                         <div class="campo campo-full">
                             <label for="imageURL">URL da Imagem: </label>
-                            <input type="text" id="imageURL" name="imageURL"
-                                [(ngModel)]="livro()!.imageURL" required placeholder="http://link-para-imagem.jpg">
+                            <input type="text" id="image_url" name="image_url"
+                                [(ngModel)]="livro()!.image_url" required placeholder="http://link-para-imagem.jpg">
                             <small class="erro" [hidden]="!(formulario.controls['imageURL']?.dirty && formulario.controls['imageURL'].invalid)">
                                 A **URL da imagem** é obrigatória.
                             </small>
@@ -150,7 +150,7 @@
 
         <div class="preview-area">
             @if (livro()!.imageURL) {
-                <img [src]="livro()!.imageURL" 
+                <img [src]="livro()!.image_url" 
                     alt="Pré-visualização da Capa" 
                     class="preview-img">
             } @else {
